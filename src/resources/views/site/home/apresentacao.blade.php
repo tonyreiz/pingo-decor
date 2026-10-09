@@ -1,5 +1,7 @@
 <section class="texto">
   <div class="site">
+    <img  src="{{ asset('pingo-decor/assets/logo.svg')}}" alt="">
+
     <p>Não criamos apenas quartos infantis, construímos universos afetivos onde memórias serão formadas. </p>
     <p>O trabalho da Pingo Decor vai além da estética: é sobre acolhimento e escuta sensível.
 
