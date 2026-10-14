@@ -37,7 +37,7 @@
 
             <a class="admin-nav-link {{ request()->routeIs('admin.contato.*') ? 'active' : '' }}"
                 href="{{ route('admin.contato.index') }}"><span
-                    class="admin-nav-icon">&#9635;</span><span>Cliente</span></a>
+                    class="admin-nav-icon">&#9635;</span><span>Contatos</span></a>
 
             <a class="admin-nav-link {{ request()->routeIs('admin.depoimento.*') ? 'active' : '' }}"
                 href="{{ route('admin.depoimento.index') }}"><span
