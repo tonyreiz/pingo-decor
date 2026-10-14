@@ -39,6 +39,10 @@
                 href="{{ route('admin.contato.index') }}"><span
                     class="admin-nav-icon">&#9635;</span><span>Cliente</span></a>
 
+            <a class="admin-nav-link {{ request()->routeIs('admin.depoimento.*') ? 'active' : '' }}"
+                href="{{ route('admin.depoimento.index') }}"><span
+                    class="admin-nav-icon">&#9635;</span><span>Depoimento</span></a>
+
         </nav>
         <p class="admin-nav-heading admin-nav-heading-spaced">PERSONALIZAÇÃO</p>
         <nav class="admin-nav" aria-label="Personalização">
