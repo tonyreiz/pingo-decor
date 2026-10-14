@@ -45,4 +45,13 @@ class Cliente extends Model
     {
         return PublicImageStorage::url($this->foto_cliente);
     }
+
+    public function depoimentos()
+{
+    return $this->hasMany(
+        Depoimento::class,
+        'id_cliente',
+        'id_cliente'
+    );
+}
 }

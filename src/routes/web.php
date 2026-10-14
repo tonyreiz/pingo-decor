@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\Admin\OrcamentoController;
 use App\Http\Controllers\Admin\ProjetosController as AdminProjetosController;
 use App\Http\Controllers\Admin\PublicacoesController as AdminPublicacoesController;
+use App\Http\Controllers\Admin\DepoimentoController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/sobre', [SobreController::class, 'sobre'])->name('sobre');
@@ -74,4 +75,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/orcamento', [OrcamentoController::class, 'store'])->name('orcamento.store');
     Route::put('/orcamento/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
     Route::delete('/orcamento/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
+    
+    Route::get('/depoimentos', [DepoimentoController::class, 'index'])->name('depoimento.index');
+    Route::put('/depoimentos/{id}', [DepoimentoController::class, 'update'])->name('depoimento.update');
+    Route::patch('/depoimentos/{id}/status', [DepoimentoController::class, 'status'])->name('depoimento.status');
+
 });

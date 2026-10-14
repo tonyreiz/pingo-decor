@@ -1,17 +1,17 @@
 <div class="admin-card">
     <div class="admin-card-header">
         <div>
-            <h2>Clientes</h2>
-            <p>Gerenciamento de clientes cadastrados no sistema.</p>
+            <h2>Funcionários</h2>
+            <p>Gerenciamento de funcionários cadastrados no sistema.</p>
         </div>
         <span class="admin-tag">{{ $listarCliente->count() }} registros</span>
     </div>
 
     <div class="admin-filter-row">
-        <div class="admin-search-fake" aria-label="Busca de cliente">
-            <span aria-hidden="true">&#128269;</span> Buscar cliente...
+        <div class="admin-search-fake" aria-label="Busca de funcionário">
+            <span aria-hidden="true">&#128269;</span> Buscar funcionário...
         </div>
-        <div class="admin-filter-fake" aria-label="Filtros de cliente">
+        <div class="admin-filter-fake" aria-label="Filtros de funcionário">
             <span class="selected">Todos</span><span>Ativos</span><span>Inativos</span>
         </div>
     </div>
@@ -65,17 +65,17 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">Nenhum cliente cadastrado.</td>
+                        <td colspan="6">Nenhum funcionário cadastrado.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="admin-card-footer">Total de clientes: {{ $listarCliente->count() }}</div>
+    <div class="admin-card-footer">Total de funcionários: {{ $listarCliente->count() }}</div>
 </div>
 
-<x-admin.modal id="modalCriarCliente" title="Criar cliente">
+<x-admin.modal id="modalCriarCliente" title="Cadastrar funcionário">
     <form
         class="admin-form"
         id="formCriarCliente"
@@ -113,7 +113,7 @@
 
     <x-slot name="footer">
         <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
-        <button type="submit" class="admin-primary-btn" form="formCriarCliente">Criar cliente</button>
+        <button type="submit" class="admin-primary-btn" form="formCriarCliente">Cadastrar funcionário</button>
     </x-slot>
 </x-admin.modal>
 
@@ -199,7 +199,7 @@
 
         <x-slot name="footer">
             <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
-            <button type="submit" class="admin-danger-btn" form="formExcluirCliente{{ $cliente->id_cliente }}">Excluir cliente</button>
+            <button type="submit" class="admin-danger-btn" form="formExcluirCliente{{ $cliente->id_cliente }}">Excluir funcionário</button>
         </x-slot>
     </x-admin.modal>
 @endforeach

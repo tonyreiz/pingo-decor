@@ -48,7 +48,7 @@
 
                         <td>
                             <img
-                                src="{{ asset('pingo-decor/assets/' . ltrim($publicacao->imagem_publicacoes, '/')) }}"
+                                src="{{ asset('pingo-decor/assets/publicacao/' . ltrim($publicacao->imagem_publicacoes, '/')) }}"
                                 alt="{{ $publicacao->titulo_publicacoes }}"
                                 class="cell-image"
                                 loading="lazy"

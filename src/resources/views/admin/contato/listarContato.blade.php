@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
-                    <th scope="col">Companheiro(a)</th>
+                    <th scope="col">Estado Cívil</th>
                     <th scope="col">E-mail</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Cidade/Bairro</th>

@@ -20,7 +20,7 @@
 
             <a class="admin-nav-link {{ request()->routeIs('admin.cliente.*') ? 'active' : '' }}"
                 href="{{ route('admin.cliente.index') }}"><span
-                    class="admin-nav-icon">&#9635;</span><span>Cliente</span></a>
+                    class="admin-nav-icon">&#9635;</span><span>Funcionários</span></a>
 
 
             <a class="admin-nav-link {{ request()->routeIs('admin.publicacoes.*') ? 'active' : '' }}"
@@ -37,7 +37,11 @@
 
             <a class="admin-nav-link {{ request()->routeIs('admin.contato.*') ? 'active' : '' }}"
                 href="{{ route('admin.contato.index') }}"><span
-                    class="admin-nav-icon">&#9635;</span><span>Contato</span></a>
+                    class="admin-nav-icon">&#9635;</span><span>Cliente</span></a>
+
+            <a class="admin-nav-link {{ request()->routeIs('admin.depoimento.*') ? 'active' : '' }}"
+                href="{{ route('admin.depoimento.index') }}"><span
+                    class="admin-nav-icon">&#9635;</span><span>Depoimento</span></a>
 
         </nav>
         <p class="admin-nav-heading admin-nav-heading-spaced">PERSONALIZAÇÃO</p>

@@ -69,7 +69,7 @@
             <thead>
                 <tr>
                     <th scope="col">Código</th>
-                    <th scope="col">Contato</th>
+                    <th scope="col">Cliente</th>
                     <th scope="col">Orçamento</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Prazo</th>

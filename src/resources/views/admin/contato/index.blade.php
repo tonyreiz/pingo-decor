@@ -6,7 +6,7 @@
         class="admin-primary-btn"
         data-admin-modal-open="modalCriarContato"
         aria-haspopup="dialog"
-    >+ Novo contato</button>
+    >+ Novo cliente</button>
 @endsection
 
 @section('content')
