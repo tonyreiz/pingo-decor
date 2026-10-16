@@ -5,7 +5,7 @@
         @foreach($listaDepoimento as $lista)
             <div class="descricao">
                 @if($lista->cliente)
-                    <img src="{{ asset('pingo-decor/assets/' .  $lista->cliente->foto_cliente) }}" alt="Foto de {{ $lista->cliente->nome_cliente }}">
+                    <img src="{{ asset('pingo-decor/assets/cliente/' .  $lista->cliente->foto_cliente) }}" alt="Foto de {{ $lista->cliente->nome_cliente }}">
                 @endif
     
                 <h1>{{ $lista->titulo_depoimento ?: ($lista->cliente->nome_cliente ?? 'Depoimento de cliente') }}</h1>
