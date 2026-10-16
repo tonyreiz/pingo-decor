@@ -11,15 +11,14 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     // Tabela utilizada para autenticação
-    protected $table = 'tbl_usuarios';
+    protected $table = 'tbl_funcionario';
 
     // Chave primária
-    protected $primaryKey = 'id_usuarios';
+    protected $primaryKey = 'id_funcionario';
 
     // Datas personalizadas da tabela
-    const CREATED_AT = 'data_criacao_usuarios';
-    const UPDATED_AT = 'data_atualizacao_usuarios';
-
+    const CREATED_AT = 'data_criacao_funcionario';
+    const UPDATED_AT = 'data_atualizacao_funcionario';
     // Campos permitidos
     protected $fillable = [
         'nome_usuarios',
@@ -30,19 +29,18 @@ class User extends Authenticatable
         'status_usuarios',
     ];
 
-    // Campos ocultos
+        // Campos ocultos
     protected $hidden = [
-        'senha_usuarios',
+        'senha_funcionario',
     ];
 
     /**
      * Conversões automáticas
      */
-     
     protected function casts(): array
     {
         return [
-            'senha_usuarios' => 'hashed',
+            'senha_funcionario' => 'hashed',
         ];
     }
 
@@ -51,7 +49,7 @@ class User extends Authenticatable
      */
     public function getAuthPasswordName(): string
     {
-        return 'senha_usuarios';
+        return 'senha_funcionario';
     }
 
     /**
@@ -59,6 +57,6 @@ class User extends Authenticatable
      */
     public function getAuthPassword(): string
     {
-        return $this->senha_usuarios;
+        return $this->senha_funcionario;
     }
 }

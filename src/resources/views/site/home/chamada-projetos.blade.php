@@ -1,3 +1,3 @@
-<section class="parallax-padrao-projetos2">
-
+<section class="parallax-padrao">
+    <h1 class="titulo">Depoimento</h1>
 </section>
