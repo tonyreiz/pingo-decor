@@ -13,5 +13,7 @@
     @include('site.home.projetos')
 
     @include('site.home.chamada-projetos')
+    
+    @include('site.home.depoimento')
 
 @endsection

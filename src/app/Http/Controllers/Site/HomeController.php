@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Projetos;
+use App\Models\Depoimento;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -19,6 +20,12 @@ class HomeController extends Controller
             ->orderByDesc('id_projetos')
             ->get();
 
-        return view('site.home.home', compact('bannerPrincipal', 'projetosDinamicos'));
+        $listaDepoimento = Depoimento::with('cliente')
+            ->where('status_depoimento', 'Ativo')
+            ->orderByDesc('id_depoimento')
+            ->get();
+
+        
+        return view('site.home.home', compact('bannerPrincipal', 'projetosDinamicos', 'listaDepoimento'));
     }
 }
