@@ -118,7 +118,7 @@
 </x-admin.modal>
 
 @foreach ($listarCliente as $cliente)
-    <x-admin.modal id="modalEditarCliente{{ $cliente->id_cliente }}" title="Editar cliente">
+    <x-admin.modal id="modalEditarCliente{{ $cliente->id_cliente }}" title="Editar funcionário">
         <form
             class="admin-form"
             id="formEditarCliente{{ $cliente->id_cliente }}"
@@ -176,7 +176,7 @@
 
     <x-admin.modal
         id="modalExcluirCliente{{ $cliente->id_cliente }}"
-        title="Excluir cliente"
+        title="Excluir funcionário"
         size="small"
         variant="danger"
     >
