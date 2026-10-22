@@ -91,9 +91,15 @@
                         };
                         $statusLabel = $statusNormalizado === 'analise' ? 'Análise' : $statusOrcamento;
                     @endphp
+
+
+
+                    @php
+                    $cliente = $orcamento->cliente;
+                    @endphp
                     <tr>
                         <td><span class="admin-code">#{{ str_pad($orcamento->id_orcamento, 3, '0', STR_PAD_LEFT) }}</span></td>
-                        <td><span class="admin-code">#{{ $orcamento->id_contato }}</span></td>
+                        <td><span class="admin-code">{{ $cliente?->nome_cliente ?? 'Cliente não encontrado' }}</span></td>
                         <td>
                             <span class="cell-primary">{{ $orcamento->titulo_orcamento }}</span>
                             @if ($orcamento->observacoes_orcamento)
@@ -149,8 +155,8 @@
         @csrf
         <div class="admin-form-grid">
             <div class="admin-field">
-                <label for="criarContatoOrcamento">ID do contato</label>
-                <input id="criarContatoOrcamento" type="number" name="id_contato" min="1" required>
+                <label for="criarCliente">ID do cliente</label>
+                <input id="criarCliente" type="number" name="id_cliente" min="1" required>
             </div>
             <div class="admin-field">
                 <label for="criarTituloOrcamento">Título do orçamento</label>
@@ -197,8 +203,8 @@
             @method('PUT')
             <div class="admin-form-grid">
                 <div class="admin-field">
-                    <label for="editarContatoOrcamento{{ $orcamento->id_orcamento }}">ID do contato</label>
-                    <input id="editarContatoOrcamento{{ $orcamento->id_orcamento }}" type="number" name="id_contato" min="1" value="{{ $orcamento->id_contato }}" required>
+                    <label for="editarCliente{{ $orcamento->id_orcamento }}">ID do cliente</label>
+                    <input id="editarCliente{{ $orcamento->id_orcamento }}" type="number" name="id_cliente" min="1" value="{{ $orcamento->id_cliente }}" required>
                 </div>
                 <div class="admin-field">
                     <label for="editarTituloOrcamento{{ $orcamento->id_orcamento }}">Título do orçamento</label>

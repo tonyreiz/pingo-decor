@@ -13,8 +13,8 @@
                     geral</span></a>
 
 
-            <a class="admin-nav-link {{ request()->routeIs('admin.cliente.*') ? 'active' : '' }}"
-                href="{{ route('admin.cliente.index') }}"><span
+            <a class="admin-nav-link {{ request()->routeIs('admin.funcionario.*') ? 'active' : '' }}"
+                href="{{ route('admin.funcionario.index') }}"><span
                     class="admin-nav-icon">&#xf4da;</span><span>Funcionários</span></a>
 
 
@@ -28,9 +28,7 @@
                 href="{{ route('admin.orcamento.index') }}"><span
                     class="admin-nav-icon">&#xf242;</span><span>Orçamentos</span></a>
 
-            <a class="admin-nav-link {{ request()->routeIs('admin.contato.*') ? 'active' : '' }}"
-                href="{{ route('admin.contato.index') }}"><span
-                    class="admin-nav-icon">&#xf264;</span><span>Contatos</span></a>
+          
 
             <a class="admin-nav-link {{ request()->routeIs('admin.depoimento.*') ? 'active' : '' }}"
                 href="{{ route('admin.depoimento.index') }}"><span

@@ -54,4 +54,13 @@ class Cliente extends Model
         'id_cliente'
     );
 }
+
+    public function orcamentos()
+{
+    return $this->hasMany(
+        Orcamento::class,
+        'id_cliente',
+        'id_cliente'
+    );
+}
 }

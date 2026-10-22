@@ -17,11 +17,26 @@ class Orcamento extends Model
     const UPDATED_AT = 'data_atualizacao_orcamento';
 
     protected $fillable = [
-        'id_contato',
+        'id_funcionario',
+        'id_cliente',
         'titulo_orcamento',
         'valor_total_orcamento',
         'prazo_execucao_orcamento',
         'observacoes_orcamento',
         'status_orcamento',
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(
+            Cliente::class,
+            'id_cliente',
+            'id_cliente'
+        );
+    }
+
+    
 }
+
+
+

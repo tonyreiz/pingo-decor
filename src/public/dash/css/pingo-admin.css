@@ -1448,7 +1448,7 @@ body.admin-modal-open {
 .login-header h1 {
     margin: 0 0 8px;
 
-    color: #ec9b5d;
+    color: #a3a37f;
     font-weight: 600;
     font-size: 28px;
 }
@@ -1526,7 +1526,7 @@ body.admin-modal-open {
 
     border-radius: 5px;
 
-    background: #b9692e;
+    background: #cf8d77;
 
     color: #fff;
 
@@ -1541,7 +1541,7 @@ body.admin-modal-open {
 
 
 .login-button:hover {
-    background: #935126;
+    background: #c97357;
 }
 
 

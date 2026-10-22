@@ -19,7 +19,7 @@ class OrcamentoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
+            'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
@@ -31,7 +31,7 @@ class OrcamentoController extends Controller
             DB::beginTransaction();
 
             Orcamento::create([
-                'id_contato' => $request->id_contato,
+                'id_cliente' => $request->id_cliente,
                 'titulo_orcamento' => $request->titulo_orcamento,
                 'valor_total_orcamento' => $request->valor_total_orcamento,
                 'prazo_execucao_orcamento' => $request->prazo_execucao_orcamento,
@@ -58,7 +58,7 @@ class OrcamentoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
+            'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
@@ -72,7 +72,7 @@ class OrcamentoController extends Controller
             $orcamento = Orcamento::findOrFail($id);
 
             $orcamento->update([
-                'id_contato' => $request->id_contato,
+                'id_cliente' => $request->id_cliente,
                 'titulo_orcamento' => $request->titulo_orcamento,
                 'valor_total_orcamento' => $request->valor_total_orcamento,
                 'prazo_execucao_orcamento' => $request->prazo_execucao_orcamento,
