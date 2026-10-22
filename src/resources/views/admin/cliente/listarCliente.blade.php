@@ -1,17 +1,17 @@
 <div class="admin-card">
     <div class="admin-card-header">
         <div>
-            <h2>Funcionários</h2>
-            <p>Gerenciamento de funcionários cadastrados no sistema.</p>
+            <h2>Clientes</h2>
+            <p>Gerenciamento de clientes cadastrados no sistema.</p>
         </div>
         <span class="admin-tag">{{ $listarCliente->count() }} registros</span>
     </div>
 
     <div class="admin-filter-row">
-        <div class="admin-search-fake" aria-label="Busca de funcionário">
-            <span aria-hidden="true">&#128269;</span> Buscar funcionário...
+        <div class="admin-search-fake" aria-label="Busca de cliente">
+            <span aria-hidden="true">&#128269;</span> Buscar cliente...
         </div>
-        <div class="admin-filter-fake" aria-label="Filtros de funcionário">
+        <div class="admin-filter-fake" aria-label="Filtros de cliente">
             <span class="selected">Todos</span><span>Ativos</span><span>Inativos</span>
         </div>
     </div>
@@ -23,6 +23,7 @@
                     <th scope="col">Foto</th>
                     <th scope="col">Nome</th>
                     <th scope="col">E-mail</th>
+                    <th scope="col">Senha</th>
                     <th scope="col">Status</th>
                     <th scope="col">Atualizado em</th>
                     <th scope="col">Ações</th>
@@ -39,6 +40,7 @@
                         </td>
                         <td><span class="cell-primary">{{ data_get($cliente, 'nome_cliente') }}</span></td>
                         <td>{{ data_get($cliente, 'email_cliente') }}</td>
+                        <td>{{ data_get($cliente, 'senha_cliente') }}</td>
                         <td>
                             @php($statusCliente = trim((string) data_get($cliente, 'status_cliente')))
                             <span class="admin-status {{ mb_strtolower($statusCliente) === 'inativo' ? 'inactive' : 'published' }}">
@@ -65,17 +67,17 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">Nenhum funcionário cadastrado.</td>
+                        <td colspan="6">Nenhum cliente cadastrado.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="admin-card-footer">Total de funcionários: {{ $listarCliente->count() }}</div>
+    <div class="admin-card-footer">Total de clientes: {{ $listarCliente->count() }}</div>
 </div>
 
-<x-admin.modal id="modalCriarCliente" title="Cadastrar funcionário">
+<x-admin.modal id="modalCriarCliente" title="Cadastrar cliente">
     <form
         class="admin-form"
         id="formCriarCliente"
@@ -113,12 +115,12 @@
 
     <x-slot name="footer">
         <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
-        <button type="submit" class="admin-primary-btn" form="formCriarCliente">Cadastrar funcionário</button>
+        <button type="submit" class="admin-primary-btn" form="formCriarCliente">Cadastrar cliente</button>
     </x-slot>
 </x-admin.modal>
 
 @foreach ($listarCliente as $cliente)
-    <x-admin.modal id="modalEditarCliente{{ $cliente->id_cliente }}" title="Editar funcionário">
+    <x-admin.modal id="modalEditarCliente{{ $cliente->id_cliente }}" title="Editar cliente">
         <form
             class="admin-form"
             id="formEditarCliente{{ $cliente->id_cliente }}"
@@ -176,7 +178,7 @@
 
     <x-admin.modal
         id="modalExcluirCliente{{ $cliente->id_cliente }}"
-        title="Excluir funcionário"
+        title="Excluir cliente"
         size="small"
         variant="danger"
     >
@@ -199,7 +201,7 @@
 
         <x-slot name="footer">
             <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
-            <button type="submit" class="admin-danger-btn" form="formExcluirCliente{{ $cliente->id_cliente }}">Excluir funcionário</button>
+            <button type="submit" class="admin-danger-btn" form="formExcluirCliente{{ $cliente->id_cliente }}">Excluir cliente</button>
         </x-slot>
     </x-admin.modal>
 @endforeach
