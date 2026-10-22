@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/orcamento/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
 
         // Rotas administrativas de Agendamento adicionadas corretamente
+        
         Route::get('/agendamento', [AgendamentoController::class, 'index'])->name('agendamento.index');
         Route::post('/agendamento', [AgendamentoController::class, 'store'])->name('agendamento.store');
         Route::put('/agendamento/{id}', [AgendamentoController::class, 'update'])->name('agendamento.update');

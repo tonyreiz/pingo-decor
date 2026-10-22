@@ -16,7 +16,9 @@
 
     <article class="admin-budget-stat admin-budget-stat-approved">
         <div class="admin-budget-stat-heading">
+
             <span>Concluídos</span>
+
             <span class="admin-budget-stat-icon" aria-hidden="true">&#10003;</span>
         </div>
         <strong>{{ $totalAprovados }}</strong>
