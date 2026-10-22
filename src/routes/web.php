@@ -93,10 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
         Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 
-        Route::get('/contato', [AdminContatoController::class, 'index'])->name('contato.index');
-        Route::post('/contato', [AdminContatoController::class, 'store'])->name('contato.store');
-        Route::put('/contato/{id}', [AdminContatoController::class, 'update'])->name('contato.update');
-        Route::delete('/contato/{id}', [AdminContatoController::class, 'destroy'])->name('contato.destroy');
+       
 
 
         Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionario.index');
