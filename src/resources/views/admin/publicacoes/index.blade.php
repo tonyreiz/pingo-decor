@@ -1,5 +1,10 @@
 @extends('layout.admin')
 
+@section('eyebrow', 'GESTÃO DE PUBLICAÇÕES')
+@section('heading', 'Publicações')
+@section('description', 'Crie, edite e delete as suas publicações.')
+
+
 @section('actions')
     <button
         type="button"

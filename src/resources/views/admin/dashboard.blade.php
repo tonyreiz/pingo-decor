@@ -1,6 +1,6 @@
 @extends('layout.admin')
 @section('title', 'Visão geral | Painel Pingo Decor')
-@section('navtitle', 'Visão geral')
+@section('navtitle', 'Visão geral')             
 @section('eyebrow', 'BEM-VINDA AO SEU ESPAÇO')
 @section('heading', 'Seu site, com a sua essência')
 @section('description', 'Uma visão clara do conteúdo e das imagens que compõem a Pingo Decor.')

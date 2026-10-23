@@ -1,7 +1,10 @@
 @php
     $totalConfirmados = $listaAgendamento->where('status_agendamento', 'CONFIRMADO')->count();
     $totalPendentes = $listaAgendamento->where('status_agendamento', 'PENDENTE')->count();
+    $totalCancelados = $listaAgendamento->where('status_agendamento', 'CANCELADO')->count();
+    
 @endphp
+
 
 <section class="admin-budget-summary" aria-label="Resumo dos agendamentos">
     <article class="admin-budget-stat admin-budget-stat-total">
@@ -28,6 +31,16 @@
             <span class="admin-budget-stat-icon" aria-hidden="true">&#9201;</span>
         </div>
         <strong>{{ $totalPendentes }}</strong>
+        <small>aguardando confirmação</small>
+    </article>
+
+    
+    <article class="admin-budget-stat admin-budget-stat-canceled" style="background-color: #ff9a9a;">
+        <div class="admin-budget-stat-heading">
+            <span>Cancelados</span>
+            <span class="admin-budget-stat-icon" aria-hidden="true">&#9201;</span>
+        </div>
+        <strong>{{ $totalCancelados }}</strong>
         <small>aguardando confirmação</small>
     </article>
 </section>
@@ -134,7 +147,7 @@
             </div>
             <div class="admin-field">
                 <label for="criarHorarioAgendamento">Horário</label>
-                <input id="criarHorarioAgendamento" type="number" name="horario_agendamento" min="0" step="0.25" placeholder="Ex.: 14.5" required>
+                <input id="criarHorarioAgendamento" type="text" name="horario_agendamento" min="0" step="0.25" placeholder="Ex.: 14:50" required>
             </div>
             <div class="admin-field admin-field-full">
                 <label for="criarEnderecoAgendamento">Endereço</label>
@@ -191,7 +204,7 @@
                 </div>
                 <div class="admin-field">
                     <label for="editarHorario{{ $agendamento->id_agendamento }}">Horário</label>
-                    <input id="editarHorario{{ $agendamento->id_agendamento }}" type="number" name="horario_agendamento" min="0" step="0.25" value="{{ $agendamento->horario_agendamento }}" required>
+                    <input id="editarHorario{{ $agendamento->id_agendamento }}" type="text" name="horario_agendamento" min="0" step="0.25" value="{{ $agendamento->horario_agendamento }}" required>
                 </div>
                 <div class="admin-field admin-field-full">
                     <label for="editarEndereco{{ $agendamento->id_agendamento }}">Endereço</label>

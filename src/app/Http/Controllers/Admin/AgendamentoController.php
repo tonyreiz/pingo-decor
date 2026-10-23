@@ -29,7 +29,7 @@ class AgendamentoController extends Controller
             'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'id_funcionario' => 'required|integer|exists:tbl_funcionario,id_funcionario',
             'dia_agendamento' => 'required|string|max:50',
-            'horario_agendamento' => 'required|numeric|min:0',
+            'horario_agendamento' => 'required|string|min:0',
             'endereco_agendamento' => 'required|string|max:100',
             'status_agendamento' => 'required|in:PENDENTE,CONFIRMADO,CANCELADO',
 
@@ -52,12 +52,12 @@ class AgendamentoController extends Controller
             return redirect()
                 ->route('admin.agendamento.index')
                 ->with('sucesso', 'Agendamento cadastrado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (\Exception $erro) {
             DB::rollBack();
 
             return redirect()
                 ->back()
-                ->with('erro', 'Erro ao cadastrar agendamento: ' . $e->getMessage());
+                ->with('erro', 'Erro ao cadastrar agendamento: ' . $erro->getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ class AgendamentoController extends Controller
             'id_funcionario' => 'required|integer|exists:tbl_funcionario,id_funcionario',
             'dia_agendamento' => 'required|string|max:50',
             'endereco_agendamento' => 'required|string|max:100',
-            'horario_agendamento' => 'required|numeric|min:0',
+            'horario_agendamento' => 'required|string|min:0',
             'status_agendamento' => 'required|in:PENDENTE,CONFIRMADO,CANCELADO',
 
         ]);
@@ -92,12 +92,12 @@ class AgendamentoController extends Controller
             return redirect()
                 ->route('admin.agendamento.index')
                 ->with('sucesso', 'Agendamento atualizado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (\Exception $erro) {
             DB::rollBack();
 
             return redirect()
                 ->back()
-                ->with('erro', 'Erro ao atualizar agendamento: ' . $e->getMessage());
+                ->with('erro', 'Erro ao atualizar agendamento: ' . $erro->getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ class AgendamentoController extends Controller
             return redirect()
                 ->route('admin.agendamento.index')
                 ->with('sucesso', 'Status atualizado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (\Exception $erro) {
             return redirect()
                 ->back()
                 ->with('erro', 'Erro ao atualizar status.');
