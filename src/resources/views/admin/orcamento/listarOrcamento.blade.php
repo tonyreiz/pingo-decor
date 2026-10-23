@@ -84,7 +84,7 @@
                             ? 'Análise'
                             : $statusOrcamento;
 
-                        $cliente = $orcamento->cliente;
+                        $contato = $orcamento->contato;
                     @endphp
 
                     <tr>
@@ -95,7 +95,7 @@
                         </td>
 
                         <td>
-                            {{ $cliente?->nome_cliente ?? 'Cliente não encontrado' }}
+                            {{ $contato?->nome_contato ?? 'Contato não encontrado' }}
                         </td>
 
                         <td>
@@ -175,12 +175,12 @@
 
         <div class="admin-form-grid">
             <div class="admin-field">
-                <label for="criarCliente">Cliente</label>
-                <select id="criarCliente" name="id_cliente" required>
-                    <option value="">Selecione um cliente</option>
-                    @foreach ($listaClientes as $cliente)
-                        <option value="{{ $cliente->id_cliente }}">
-                            {{ $cliente->nome_cliente }}
+                <label for="criarContato">Contato</label>
+                <select id="criarContato" name="id_contato" required>
+                    <option value="">Selecione um contato</option>
+                    @foreach ($listaContatos as $contato)
+                        <option value="{{ $contato->id_contato }}">
+                            {{ $contato->nome_contato }}
                         </option>
                     @endforeach
                 </select>
@@ -269,19 +269,19 @@
 
             <div class="admin-form-grid">
                 <div class="admin-field">
-                    <label for="editarCliente{{ $orcamento->id_orcamento }}">Cliente</label>
+                    <label for="editarContato{{ $orcamento->id_orcamento }}">Contato</label>
                     <select
-                        id="editarCliente{{ $orcamento->id_orcamento }}"
-                        name="id_cliente"
+                        id="editarContato{{ $orcamento->id_orcamento }}"
+                        name="id_contato"
                         required
                     >
-                        <option value="">Selecione um cliente</option>
-                        @foreach ($listaClientes as $cliente)
+                        <option value="">Selecione um contato</option>
+                        @foreach ($listaContatos as $contato)
                             <option
-                                value="{{ $cliente->id_cliente }}"
-                                @selected((int) $orcamento->id_cliente === (int) $cliente->id_cliente)
+                                value="{{ $contato->id_contato }}"
+                                @selected((int) $orcamento->id_contato === (int) $contato->id_contato)
                             >
-                                {{ $cliente->nome_cliente }}
+                                {{ $contato->nome_contato }}
                             </option>
                         @endforeach
                     </select>

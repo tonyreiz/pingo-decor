@@ -8,12 +8,13 @@ use App\Http\Controllers\Site\SobreController;
 
 use Illuminate\Support\Facades\Route;
 
-// area administrativa
+// Área administrativa
 use App\Http\Controllers\Admin\AdminController;
-use \App\Http\Controllers\Admin\BannerController;
-use \App\Http\Controllers\Admin\ClienteController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ClienteController;
 use App\Http\Controllers\Admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\Admin\OrcamentoController;
+use App\Http\Controllers\Admin\AgendamentoController;
 use App\Http\Controllers\Admin\ProjetosController as AdminProjetosController;
 use App\Http\Controllers\Admin\PublicacoesController as AdminPublicacoesController;
 use App\Http\Controllers\Admin\DepoimentoController;
@@ -45,7 +46,6 @@ Route::redirect('/quarto-benjamin.html', '/projetos/quarto-benjamin');
 Route::redirect('/quarto-alice-catarina.html', '/projetos/quarto-alice-catarina');
 Route::redirect('/brinquedoteca.html', '/projetos/brinquedoteca');
 
-
 /*
 |--------------------------------------------------------------------------
 | LOGIN
@@ -56,7 +56,6 @@ Route::redirect('/brinquedoteca.html', '/projetos/brinquedoteca');
 */
 
 Route::middleware('guest')->group(function () {
-
     // Exibir tela de login
     Route::get('/login', [LoginController::class, 'index'])
         ->name('login');
@@ -67,18 +66,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-
-
-    // --------------------------------------------------------------------------
-    //     | LOGOUT
-    //     |--------------------------------------------------------------------------
-    //     */
-
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
-
-
-
 
     // Painel administrativo.
     Route::prefix('admin')->name('admin.')->group(function () {
@@ -99,9 +88,6 @@ Route::middleware('auth')->group(function () {
         Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
         Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 
-       
-
-
         Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionario.index');
         Route::post('/funcionarios', [FuncionarioController::class, 'store'])->name('funcionario.store');
         Route::put('/funcionarios/{id}', [FuncionarioController::class, 'update'])->name('funcionario.update');
@@ -121,6 +107,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/orcamento', [OrcamentoController::class, 'store'])->name('orcamento.store');
         Route::put('/orcamento/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
         Route::delete('/orcamento/{id}', [OrcamentoController::class, 'destroy'])->name('orcamento.destroy');
+
+        // Rotas administrativas de Agendamento adicionadas corretamente
+        
+        Route::get('/agendamento', [AgendamentoController::class, 'index'])->name('agendamento.index');
+        Route::post('/agendamento', [AgendamentoController::class, 'store'])->name('agendamento.store');
+        Route::put('/agendamento/{id}', [AgendamentoController::class, 'update'])->name('agendamento.update');
+        Route::delete('/agendamento/{id}', [AgendamentoController::class, 'destroy'])->name('agendamento.destroy');
+        Route::patch('/agendamento/{id}/status', [AgendamentoController::class, 'status'])->name('agendamento.status');
 
         Route::get('/depoimentos', [DepoimentoController::class, 'index'])->name('depoimento.index');
         Route::put('/depoimentos/{id}', [DepoimentoController::class, 'update'])->name('depoimento.update');
