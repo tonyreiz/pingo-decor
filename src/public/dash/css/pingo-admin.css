@@ -767,6 +767,92 @@ button.admin-primary-btn:disabled {
     gap: 15px;
     margin-bottom: 20px;
 }
+.admin-weekly-section {
+    margin:  22px 0;
+    padding: 30px;
+    border: 1px solid var(--admin-line);
+    border-radius: 17px;
+    background: #fffdfa;
+    box-shadow: 0 8px 22px rgba(57, 45, 41, 0.04);
+}
+.admin-weekly-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+.admin-weekly-heading h2 {
+    margin: 0;
+    color: var(--admin-ink);
+    font-family: Georgia, serif;
+    font-size: 20px;
+}
+.admin-weekly-heading p {
+    margin: 4px 0 0;
+    color: var(--admin-muted);
+    font-size: 12px;
+}
+.admin-weekly-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+}
+.admin-weekly-day {
+    display: flex;
+    min-width: 0;
+    min-height: 142px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 8px;
+    border: 1px solid var(--admin-line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--admin-ink);
+    text-align: center;
+    box-shadow: 0 3px 9px rgba(57, 45, 41, 0.04);
+}
+.admin-weekly-day-name {
+    color: #765f53;
+    font-size: 12px;
+}
+.admin-weekly-day-number {
+    margin-top: 5px;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    line-height: 1.1;
+}
+.admin-weekly-day-month {
+    margin-top: 2px;
+    color: var(--admin-muted);
+    font-size: 11px;
+    text-transform: capitalize;
+}
+.admin-weekly-day-count {
+    margin-top: 10px;
+    color: #8e7c73;
+    font-size: 10px;
+}
+.admin-weekly-day.has-appointments:not(.is-today) {
+    border-color: rgba(139, 94, 60, 0.42);
+    background: #fbf5f0;
+}
+.admin-weekly-day.has-appointments:not(.is-today) .admin-weekly-day-count {
+    color: var(--admin-brand);
+    font-weight: 700;
+}
+.admin-weekly-day.is-today {
+    border-color: var(--admin-brand);
+    background: var(--admin-brand);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(139, 94, 60, 0.2);
+}
+.admin-weekly-day.is-today .admin-weekly-day-name,
+.admin-weekly-day.is-today .admin-weekly-day-month,
+.admin-weekly-day.is-today .admin-weekly-day-count {
+    color: rgba(255, 255, 255, 0.88);
+}
 .admin-budget-stat {
     min-width: 0;
     padding: 19px 20px;
@@ -1382,6 +1468,21 @@ body.admin-modal-open {
     }
 }
 
+@media (max-width: 1050px) {
+    .admin-weekly-days {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 620px) {
+    .admin-weekly-section {
+        padding: 15px;
+    }
+    .admin-weekly-days {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 .login-body {
     margin: 0;
     min-height: 100vh;
@@ -1591,6 +1692,5 @@ body.admin-modal-open {
 .login-footer small {
     font-size: 11px;
 }
-
 
 

@@ -2,7 +2,13 @@
     $totalConfirmados = $listaAgendamento->where('status_agendamento', 'CONFIRMADO')->count();
     $totalPendentes = $listaAgendamento->where('status_agendamento', 'PENDENTE')->count();
     $totalCancelados = $listaAgendamento->where('status_agendamento', 'CANCELADO')->count();
-    
+
+    $inicioSemana = \Carbon\CarbonImmutable::now()->startOfWeek(\Carbon\Carbon::MONDAY);
+    $nomesDias = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+    $nomesMeses = [
+        'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+        'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro',
+    ];
 @endphp
 
 
@@ -82,7 +88,7 @@
                         <td><span class="admin-code">#{{ str_pad($agendamento->id_agendamento, 3, '0', STR_PAD_LEFT) }}</span></td>
                         <td>{{ $agendamento->cliente?->nome_cliente ?? 'Cliente não encontrado' }}</td>
                         <td>{{ $agendamento->funcionario?->nome_funcionario ?? 'Funcionário não vinculado' }}</td>
-                        <td>{{ $agendamento->dia_agendamento }}</td>
+                        <td>{{ \Carbon\Carbon::parse($agendamento->dia_agendamento)->format('d/m/Y') }}</td>
                         <td>{{ $agendamento->horario_agendamento }}</td>
                         <td>{{ $agendamento->endereco_agendamento }}</td>
                         <td><span class="admin-status {{ $statusClass }}">{{ $status }}</span></td>
@@ -115,6 +121,44 @@
     <div class="admin-card-footer">Total de agendamentos: {{ $listaAgendamento->count() }}</div>
 </div>
 
+
+<section class="admin-weekly-section" aria-label="Resumo semanal dos agendamentos">
+    <div class="admin-weekly-heading">
+        <div>
+            <h2>Resumo semanal</h2>
+            <p>Agendamentos de segunda a domingo.</p>
+        </div>
+        <span class="admin-tag">{{ $inicioSemana->format('d/m') }} — {{ $inicioSemana->addDays(6)->format('d/m') }}</span>
+    </div>
+
+    <div class="admin-weekly-days">
+        @for ($i = 0; $i < 7; $i++)
+            @php
+                $diaSemana = $inicioSemana->addDays($i);
+                $ehHoje = $diaSemana->isToday();
+                $quantidadeAgendamentos = $listaAgendamento->filter(function ($agendamento) use ($diaSemana) {
+                    try {
+                        return \Carbon\Carbon::parse($agendamento->dia_agendamento)->isSameDay($diaSemana);
+                    } catch (\Throwable $erro) {
+                        return false;
+                    }
+                })->count();
+                $mes = $nomesMeses[(int) $diaSemana->format('n') - 1];
+            @endphp
+
+            <article class="admin-weekly-day {{ $ehHoje ? 'is-today' : '' }} {{ $quantidadeAgendamentos > 0 ? 'has-appointments' : '' }}">
+                <span class="admin-weekly-day-name">{{ $nomesDias[$i] }}</span>
+                <strong class="admin-weekly-day-number">{{ $diaSemana->format('d') }}</strong>
+                <span class="admin-weekly-day-month">{{ $mes }}</span>
+                <span class="admin-weekly-day-count">
+                    {{ $quantidadeAgendamentos }} {{ $quantidadeAgendamentos === 1 ? 'agendamento' : 'agendamentos' }}
+                </span>
+            </article>
+        @endfor
+    </div>
+</section>
+
+
 <x-admin.modal id="modalNovoAgendamento" title="Novo agendamento" size="large">
     <form id="formCriarAgendamento" class="admin-form"
         action="{{ route('admin.agendamento.store') }}" method="POST">
@@ -144,11 +188,11 @@
             </div>
             <div class="admin-field">
                 <label for="criarDiaAgendamento">Dia</label>
-                <input id="criarDiaAgendamento" type="text" name="dia_agendamento" maxlength="50" placeholder="Ex.: 30/10/2026" required>
+                <input id="criarDiaAgendamento" type="date" name="dia_agendamento" value="{{ old('dia_agendamento') }}" required>
             </div>
             <div class="admin-field">
                 <label for="criarHorarioAgendamento">Horário</label>
-                <input id="criarHorarioAgendamento" type="text" name="horario_agendamento" min="0" step="0.25" placeholder="Ex.: 14:50" required>
+                <input id="criarHorarioAgendamento" type="time" name="horario_agendamento" value="{{ old('horario_agendamento') }}" required>
             </div>
             <div class="admin-field admin-field-full">
                 <label for="criarEnderecoAgendamento">Endereço</label>
@@ -205,11 +249,19 @@
                 </div>
                 <div class="admin-field">
                     <label for="editarHorario{{ $agendamento->id_agendamento }}">Horário</label>
-                    <input id="editarHorario{{ $agendamento->id_agendamento }}" type="text" name="horario_agendamento" min="0" step="0.25" value="{{ $agendamento->horario_agendamento }}" required>
+                    <input id="editarHorario{{ $agendamento->id_agendamento }}" type="time" name="horario_agendamento" value="{{ substr((string) $agendamento->horario_agendamento, 0, 5) }}" required>
                 </div>
                 <div class="admin-field admin-field-full">
                     <label for="editarEnderecoAgendamento{{ $agendamento->id_agendamento }}">Endereço</label>
                     <input id="editarEnderecoAgendamento{{ $agendamento->id_agendamento }}" type="text" name="endereco_agendamento" value="{{ $agendamento->endereco_agendamento }}" required>
+                </div>
+                <div class="admin-field">
+                    <label for="editarStatusAgendamento{{ $agendamento->id_agendamento }}">Status</label>
+                    <select id="editarStatusAgendamento{{ $agendamento->id_agendamento }}" name="status_agendamento" required>
+                        <option value="PENDENTE" @selected($agendamento->status_agendamento === 'PENDENTE')>Pendente</option>
+                        <option value="CONFIRMADO" @selected($agendamento->status_agendamento === 'CONFIRMADO')>Confirmado</option>
+                        <option value="CANCELADO" @selected($agendamento->status_agendamento === 'CANCELADO')>Cancelado</option>
+                    </select>
                 </div>
             </div>
         </form>
