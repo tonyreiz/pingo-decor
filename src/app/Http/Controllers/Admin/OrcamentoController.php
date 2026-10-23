@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contato;
+use App\Models\Cliente;
 use App\Models\Orcamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,18 +16,18 @@ class OrcamentoController extends Controller
             ->orderByDesc('id_orcamento')
             ->get();
 
-        $listaContatos = Contato::orderBy('nome_contato')->get();
+        $listaClientes = Cliente::orderBy('nome_cliente')->get();
 
         return view('admin.orcamento.index', compact(
             'listaOrcamento',
-            'listaContatos'
+            'listaClientes'
         ));
     }
 
     public function store(Request $request)
     {
         $dados = $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
+            'id_contato' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
@@ -68,7 +68,7 @@ class OrcamentoController extends Controller
     public function update(Request $request, $id)
     {
         $dados = $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
+            'id_contato' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',

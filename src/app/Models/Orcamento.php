@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Contato;
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Model;
 
 class Orcamento extends Model
@@ -25,13 +25,8 @@ class Orcamento extends Model
         'observacoes_orcamento',
         'status_orcamento',
     ];
-
-    public function contato()
+    public function cliente()
     {
-        return $this->belongsTo(
-            Contato::class,
-            'id_contato',
-            'id_contato'
-        );
+        return $this->belongsTo(Cliente::class, 'id_cliente', 'id_cliente');
     }
 }

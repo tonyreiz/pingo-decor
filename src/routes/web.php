@@ -14,7 +14,6 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ClienteController;
 use App\Http\Controllers\Admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\Admin\OrcamentoController;
-use App\Http\Controllers\Admin\AgendamentoController;
 use App\Http\Controllers\Admin\ProjetosController as AdminProjetosController;
 use App\Http\Controllers\Admin\PublicacoesController as AdminPublicacoesController;
 use App\Http\Controllers\Admin\DepoimentoController;
