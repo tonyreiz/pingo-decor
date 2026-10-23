@@ -27,7 +27,7 @@ class OrcamentoController extends Controller
     public function store(Request $request)
     {
         $dados = $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_cliente,id_cliente',
+            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
@@ -39,7 +39,7 @@ class OrcamentoController extends Controller
             DB::beginTransaction();
 
             Orcamento::create([
-                'id_contato' => $dados['id_contato'],
+                'id_cliente' => $dados['id_cliente'],
                 'titulo_orcamento' => $dados['titulo_orcamento'],
                 'valor_total_orcamento' => $dados['valor_total_orcamento'],
                 'prazo_execucao_orcamento' => $dados['prazo_execucao_orcamento'],
@@ -54,9 +54,9 @@ class OrcamentoController extends Controller
             return redirect()
                 ->route('admin.orcamento.index')
                 ->with('sucesso', 'Orçamento cadastrado com sucesso!');
-        } catch (\Throwable $e) {
+        } catch (\Throwable $erro) {
             DB::rollBack();
-            report($e);
+            report($erro);
 
             return redirect()
                 ->back()
@@ -68,7 +68,7 @@ class OrcamentoController extends Controller
     public function update(Request $request, $id)
     {
         $dados = $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_cliente,id_cliente',
+            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
@@ -82,7 +82,7 @@ class OrcamentoController extends Controller
             $orcamento = Orcamento::findOrFail($id);
 
             $orcamento->update([
-                'id_contato' => $dados['id_contato'],
+                'id_cliente' => $dados['id_cliente'],
                 'titulo_orcamento' => $dados['titulo_orcamento'],
                 'valor_total_orcamento' => $dados['valor_total_orcamento'],
                 'prazo_execucao_orcamento' => $dados['prazo_execucao_orcamento'],

@@ -30,7 +30,7 @@ class AgendamentoController extends Controller
             'id_funcionario' => 'required|integer|exists:tbl_funcionario,id_funcionario',
             'dia_agendamento' => 'required|string|max:50',
             'horario_agendamento' => 'required|numeric|min:0',
-            'endereço_agendamento' => 'required|string|max:100',
+            'endereco_agendamento' => 'required|string|max:100',
             'status_agendamento' => 'required|in:PENDENTE,CONFIRMADO,CANCELADO',
 
         ]);
@@ -43,7 +43,7 @@ class AgendamentoController extends Controller
                 'id_funcionario' => $request->id_funcionario,
                 'dia_agendamento' => $request->dia_agendamento,
                 'horario_agendamento' => $request->horario_agendamento,
-                'endereço_agendamento' => $request->endereço_agendamento,
+                'endereco_agendamento' => $request->endereco_agendamento,
                 'status_agendamento' => $request->status_agendamento,
             ]);
 
@@ -67,7 +67,7 @@ class AgendamentoController extends Controller
             'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'id_funcionario' => 'required|integer|exists:tbl_funcionario,id_funcionario',
             'dia_agendamento' => 'required|string|max:50',
-            'endereço_agendamento' => 'required|string|max:100',
+            'endereco_agendamento' => 'required|string|max:100',
             'horario_agendamento' => 'required|numeric|min:0',
             'status_agendamento' => 'required|in:PENDENTE,CONFIRMADO,CANCELADO',
 
@@ -83,7 +83,7 @@ class AgendamentoController extends Controller
                 'id_funcionario' => $request->id_funcionario,
                 'dia_agendamento' => $request->dia_agendamento,
                 'horario_agendamento' => $request->horario_agendamento,
-                'endereço_agendamento' => $request->endereço_agendamento,
+                'endereco_agendamento' => $request->endereco_agendamento,
                 'status_agendamento' => $request->status_agendamento,
             ]);
 
@@ -112,7 +112,6 @@ class AgendamentoController extends Controller
 
             $agendamento->update([
                 'status_agendamento' => $request->status_agendamento,
-                'data_atualizacao_agendamento' => now(),
             ]);
 
             return redirect()
