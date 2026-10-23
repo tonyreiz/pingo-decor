@@ -1,4 +1,3 @@
-
 @php
     $orcamentosAprovados = $listaOrcamento->where('status_orcamento', 'Aprovado');
     $totalAprovados = $orcamentosAprovados->count();
@@ -176,7 +175,7 @@
         <div class="admin-form-grid">
             <div class="admin-field">
                 <label for="criarCliente">Cliente</label>
-                <select id="criarCliente" name="id_cliente" required>
+                <select id="criarCliente" name="id_contato" required>
                     <option value="">Selecione um cliente</option>
                     @foreach ($listaClientes as $cliente)
                         <option value="{{ $cliente->id_cliente }}">
@@ -272,14 +271,14 @@
                     <label for="editarCliente{{ $orcamento->id_orcamento }}">Cliente</label>
                     <select
                         id="editarCliente{{ $orcamento->id_orcamento }}"
-                        name="id_cliente"
+                        name="id_contato"
                         required
                     >
                         <option value="">Selecione um cliente</option>
                         @foreach ($listaClientes as $cliente)
                             <option
                                 value="{{ $cliente->id_cliente }}"
-                                @selected((int) $orcamento->id_cliente === (int) $cliente->id_cliente)
+                                @selected((int) $orcamento->id_contato === (int) $cliente->id_cliente)
                             >
                                 {{ $cliente->nome_cliente }}
                             </option>

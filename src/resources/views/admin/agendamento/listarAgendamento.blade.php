@@ -93,7 +93,8 @@
                                     aria-haspopup="dialog">Editar</button>
                                 <button type="button" class="admin-action admin-action-danger"
                                     data-admin-modal-open="modalExcluirAgendamento{{ $agendamento->id_agendamento }}"
-                                    aria-haspopup="dialog">Excluir</button>
+                                    aria-haspopup="dialog"
+                                >Excluir</button>
                             </div>
                         </td>
                     </tr>
@@ -199,36 +200,37 @@
                     </select>
                 </div>
                 <div class="admin-field">
-                    <label for="editarDia{{ $agendamento->id_agendamento }}">Dia</label>
-                    <input id="editarDia{{ $agendamento->id_agendamento }}" type="text" name="dia_agendamento" maxlength="50" value="{{ $agendamento->dia_agendamento }}" required>
+                    <label for="editarDiaAgendamento{{ $agendamento->id_agendamento }}">Dia do agendamento</label>
+                    <input id="editarDiaAgendamento{{ $agendamento->id_agendamento }}" type="date" name="dia_agendamento" value="{{ $agendamento->dia_agendamento }}" required>
                 </div>
                 <div class="admin-field">
                     <label for="editarHorario{{ $agendamento->id_agendamento }}">Horário</label>
                     <input id="editarHorario{{ $agendamento->id_agendamento }}" type="text" name="horario_agendamento" min="0" step="0.25" value="{{ $agendamento->horario_agendamento }}" required>
                 </div>
                 <div class="admin-field admin-field-full">
-                    <label for="editarEndereco{{ $agendamento->id_agendamento }}">Endereço</label>
-                    <input id="editarEndereco{{ $agendamento->id_agendamento }}" type="text" name="endereco_agendamento" maxlength="100" value="{{ $agendamento->endereco_agendamento }}" required>
-                </div>
-                <div class="admin-field">
-                    <label for="editarStatus{{ $agendamento->id_agendamento }}">Status</label>
-                    <select id="editarStatus{{ $agendamento->id_agendamento }}" name="status_agendamento" required>
-                        <option value="PENDENTE" @selected($agendamento->status_agendamento === 'PENDENTE')>Pendente</option>
-                        <option value="CONFIRMADO" @selected($agendamento->status_agendamento === 'CONFIRMADO')>Confirmado</option>
-                        <option value="CANCELADO" @selected($agendamento->status_agendamento === 'CANCELADO')>Cancelado</option>
-                    </select>
+                    <label for="editarEnderecoAgendamento{{ $agendamento->id_agendamento }}">Endereço</label>
+                    <input id="editarEnderecoAgendamento{{ $agendamento->id_agendamento }}" type="text" name="endereco_agendamento" value="{{ $agendamento->endereco_agendamento }}" required>
                 </div>
             </div>
         </form>
+
         <x-slot name="footer">
             <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
             <button type="submit" class="admin-primary-btn" form="formEditarAgendamento{{ $agendamento->id_agendamento }}">Salvar alterações</button>
         </x-slot>
     </x-admin.modal>
 
-    <x-admin.modal id="modalExcluirAgendamento{{ $agendamento->id_agendamento }}" title="Excluir agendamento" size="small" variant="danger">
-        <form id="formExcluirAgendamento{{ $agendamento->id_agendamento }}"
-            action="{{ route('admin.agendamento.destroy', $agendamento->id_agendamento) }}" method="POST">
+    <x-admin.modal
+        id="modalExcluirAgendamento{{ $agendamento->id_agendamento }}"
+        title="Excluir agendamento"
+        size="small"
+        variant="danger"
+    >
+        <form
+            id="formExcluirAgendamento{{ $agendamento->id_agendamento }}"
+            action="{{ route('admin.agendamento.destroy', $agendamento->id_agendamento) }}"
+            method="POST"
+        >
             @csrf
             @method('DELETE')
         </form>
