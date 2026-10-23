@@ -12,7 +12,11 @@ class OrcamentoController extends Controller
     public function index()
     {
         $listaOrcamento = Orcamento::orderByDesc('id_orcamento')->get();
+        $listaOrcamento = Orcamento::with('cliente')
+            ->orderByDesc('id_orcamento')
+            ->get();
 
+        $listaClientes = Cliente::orderBy('nome_cliente')->get();
         return view('admin.orcamento.index', compact('listaOrcamento'));
     }
 
