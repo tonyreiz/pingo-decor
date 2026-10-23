@@ -61,7 +61,7 @@ CREATE TABLE `tbl_cliente` (
   `data_criacao_cliente` datetime NOT NULL DEFAULT current_timestamp(),
   `data_atualizacao_cliente` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `tbl_cliente` (
 
 LOCK TABLES `tbl_cliente` WRITE;
 /*!40000 ALTER TABLE `tbl_cliente` DISABLE KEYS */;
-INSERT INTO `tbl_cliente` VALUES (1,'Mariana Oliveira','mariana@email.com','123456','mariana.jpg','Ativo','2026-09-17 16:49:26','2026-09-17 16:49:26'),(2,'Camila Santos','camila@email.com','123456','camila.jpg','Ativo','2026-09-17 16:49:26','2026-09-17 16:49:26');
+INSERT INTO `tbl_cliente` VALUES (1,'Mariana Oliveira','mariana@email.com','123456','mariana.jpg','Ativo','2026-09-17 16:49:26','2026-09-17 16:49:26'),(2,'Camila Santos','camila@email.com','123456','camila.jpg','Ativo','2026-09-17 16:49:26','2026-09-17 16:49:26'),(3,'Fernanda Costa','fernanda.costa@pingodecor.local','123456','imagem-indisponivel.svg','Ativo','2026-09-17 16:49:26','2026-09-17 16:49:26');
 /*!40000 ALTER TABLE `tbl_cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +152,7 @@ DROP TABLE IF EXISTS `tbl_orcamento`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_orcamento` (
   `id_orcamento` int(11) NOT NULL AUTO_INCREMENT,
-  `id_contato` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
   `titulo_orcamento` varchar(50) NOT NULL,
   `valor_total_orcamento` decimal(10,2) NOT NULL,
   `prazo_execucao_orcamento` text NOT NULL,
@@ -161,8 +161,8 @@ CREATE TABLE `tbl_orcamento` (
   `data_criacao_orcamento` datetime NOT NULL DEFAULT current_timestamp(),
   `data_atualizacao_orcamento` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_orcamento`),
-  KEY `fk_orcamento_contato` (`id_contato`),
-  CONSTRAINT `fk_orcamento_contato` FOREIGN KEY (`id_contato`) REFERENCES `tbl_contato` (`id_contato`)
+  KEY `fk_orcamento_cliente` (`id_cliente`),
+  CONSTRAINT `fk_orcamento_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `tbl_cliente` (`id_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

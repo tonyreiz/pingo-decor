@@ -127,8 +127,8 @@ class AdminCrudTest extends TestCase
             Storage::disk('public')->assertMissing($newImage);
         }
 
-        if (isset($case['cleanup_contact'])) {
-            DB::table('tbl_contato')->where('id_contato', $case['cleanup_contact'])->delete();
+        if (isset($case['cleanup_client'])) {
+            DB::table('tbl_cliente')->where('id_cliente', $case['cleanup_client'])->delete();
         }
     }
 
@@ -207,7 +207,7 @@ class AdminCrudTest extends TestCase
                 'orcamento',
                 'tbl_orcamento',
                 [
-                    'id_contato',
+                    'id_cliente',
                     'titulo_orcamento',
                     'valor_total_orcamento',
                     'prazo_execucao_orcamento',
@@ -320,7 +320,13 @@ class AdminCrudTest extends TestCase
 
     private function orcamentoCase(): array
     {
-        $contactId = DB::table('tbl_contato')->insertGetId($this->validContatoPayload());
+        $clientId = DB::table('tbl_cliente')->insertGetId([
+            'nome_cliente' => "Codex Cliente Orcamento {$this->testToken}",
+            'email_cliente' => "codex.orcamento.{$this->testToken}@example.test",
+            'senha_cliente' => Hash::make('segredo123'),
+            'foto_cliente' => 'cliente/teste.png',
+            'status_cliente' => 'Ativo',
+        ]);
 
         return [
             'route' => 'orcamento',
@@ -329,9 +335,9 @@ class AdminCrudTest extends TestCase
             'lookup' => 'titulo_orcamento',
             'heading' => 'Lista de orçamentos',
             'image' => null,
-            'cleanup_contact' => $contactId,
+            'cleanup_client' => $clientId,
             'create' => [
-                'id_contato' => $contactId,
+                'id_cliente' => $clientId,
                 'titulo_orcamento' => "Codex Orcamento {$this->testToken}",
                 'valor_total_orcamento' => '1250.50',
                 'prazo_execucao_orcamento' => '30 dias',
@@ -339,7 +345,7 @@ class AdminCrudTest extends TestCase
                 'status_orcamento' => 'Pendente',
             ],
             'update' => [
-                'id_contato' => $contactId,
+                'id_cliente' => $clientId,
                 'titulo_orcamento' => "Codex Orc Atual {$this->testToken}",
                 'valor_total_orcamento' => '2300.75',
                 'prazo_execucao_orcamento' => '45 dias',
@@ -405,29 +411,10 @@ class AdminCrudTest extends TestCase
             $table->dateTime('data_atualizacao_cliente')->nullable();
         });
 
-        Schema::create('tbl_contato', function (Blueprint $table): void {
-            $table->increments('id_contato');
-            $table->string('nome_contato', 60);
-            $table->string('nome_companheiro_contato', 70);
-            $table->string('nome_idade_criancas_contato', 60);
-            $table->string('email_contato', 80);
-            $table->string('telefone_contato', 15);
-            $table->string('cidade_bairro_contato', 32);
-            $table->string('profissao_contato', 80);
-            $table->string('origem_contato', 23);
-            $table->string('ajuda_contato', 47);
-            $table->string('metragem_contato', 70);
-            $table->string('quantidades_ambientes_contato', 14);
-            $table->string('trimestre_gestacao_contato', 37);
-            $table->string('prazo_contato', 15);
-            $table->string('detalhes_contato', 80);
-            $table->dateTime('data_criacao_contato')->useCurrent();
-            $table->dateTime('data_atualizacao_contato')->useCurrent();
-        });
 
         Schema::create('tbl_orcamento', function (Blueprint $table): void {
             $table->increments('id_orcamento');
-            $table->unsignedInteger('id_contato');
+            $table->unsignedInteger('id_cliente');
             $table->string('titulo_orcamento', 50);
             $table->decimal('valor_total_orcamento', 10, 2);
             $table->text('prazo_execucao_orcamento');
@@ -435,7 +422,7 @@ class AdminCrudTest extends TestCase
             $table->string('status_orcamento', 10);
             $table->dateTime('data_criacao_orcamento')->nullable();
             $table->dateTime('data_atualizacao_orcamento')->nullable();
-            $table->foreign('id_contato')->references('id_contato')->on('tbl_contato');
+            $table->foreign('id_cliente')->references('id_cliente')->on('tbl_cliente');
         });
 
         Schema::create('tbl_projetos', function (Blueprint $table): void {

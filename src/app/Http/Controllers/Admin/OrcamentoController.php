@@ -27,7 +27,7 @@ class OrcamentoController extends Controller
     public function store(Request $request)
     {
         $dados = $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
+            'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
@@ -68,7 +68,7 @@ class OrcamentoController extends Controller
     public function update(Request $request, $id)
     {
         $dados = $request->validate([
-            'id_contato' => 'required|integer|exists:tbl_contato,id_contato',
+            'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
             'prazo_execucao_orcamento' => 'required|string|max:100',
