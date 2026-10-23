@@ -8,7 +8,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Login | Casa do Barista</title>
+    <title>Login | Pingo Decor</title>
 
     <link
         rel="stylesheet"

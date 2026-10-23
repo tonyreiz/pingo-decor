@@ -21,4 +21,12 @@ class Funcionario extends Model
     ];
 
 
+public function agendamentos()
+{
+    return $this->hasMany(
+        Agendamento::class,
+        'id_funcionario',
+        'id_funcionario'
+    );
+}
 }

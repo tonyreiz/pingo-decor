@@ -63,4 +63,8 @@ class Cliente extends Model
         'id_cliente'
     );
 }
+
+public function agendamentos(){
+    return $this->hasMany(Agendamento::class,'id_cliente','id_cliente');
+}
 }
