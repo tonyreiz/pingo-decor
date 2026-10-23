@@ -12,13 +12,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ClienteController;
-use App\Http\Controllers\Admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\Admin\OrcamentoController;
-use App\Http\Controllers\Admin\AgendamentoController;
 use App\Http\Controllers\Admin\ProjetosController as AdminProjetosController;
 use App\Http\Controllers\Admin\PublicacoesController as AdminPublicacoesController;
 use App\Http\Controllers\Admin\DepoimentoController;
 use App\Http\Controllers\Admin\FuncionarioController;
+use App\Http\Controllers\Admin\AgendamentoController;
 use App\Http\Controllers\Admin\LoginController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -71,6 +70,11 @@ Route::middleware('auth')->group(function () {
     // Painel administrativo.
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+        Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamento.index');
+        Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamento.store');
+        Route::put('/agendamentos/{id}', [AgendamentoController::class, 'update'])->name('agendamento.update');
+        Route::delete('/agendamentos/{id}', [AgendamentoController::class, 'destroy'])->name('agendamento.destroy');
 
         Route::get('/banners', [BannerController::class, 'index'])->name('banner.index');
         Route::post('/banners', [BannerController::class, 'store'])->name('banner.store');

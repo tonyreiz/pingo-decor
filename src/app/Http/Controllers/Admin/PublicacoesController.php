@@ -28,6 +28,8 @@ class PublicacoesController extends Controller
             'data_publicacoes' => 'required|date',
         ]);
 
+        
+
         $novoArquivo = null;
 
         try {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cliente;
 use App\Models\Orcamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,14 +12,21 @@ class OrcamentoController extends Controller
 {
     public function index()
     {
-        $listaOrcamento = Orcamento::orderByDesc('id_orcamento')->get();
+        $listaOrcamento = Orcamento::with('cliente')
+            ->orderByDesc('id_orcamento')
+            ->get();
 
-        return view('admin.orcamento.index', compact('listaOrcamento'));
+        $listaClientes = Cliente::orderBy('nome_cliente')->get();
+
+        return view('admin.orcamento.index', compact(
+            'listaOrcamento',
+            'listaClientes'
+        ));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $dados = $request->validate([
             'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
@@ -31,12 +39,12 @@ class OrcamentoController extends Controller
             DB::beginTransaction();
 
             Orcamento::create([
-                'id_cliente' => $request->id_cliente,
-                'titulo_orcamento' => $request->titulo_orcamento,
-                'valor_total_orcamento' => $request->valor_total_orcamento,
-                'prazo_execucao_orcamento' => $request->prazo_execucao_orcamento,
-                'observacoes_orcamento' => $request->observacoes_orcamento ?? '',
-                'status_orcamento' => $request->status_orcamento,
+                'id_cliente' => $dados['id_cliente'],
+                'titulo_orcamento' => $dados['titulo_orcamento'],
+                'valor_total_orcamento' => $dados['valor_total_orcamento'],
+                'prazo_execucao_orcamento' => $dados['prazo_execucao_orcamento'],
+                'observacoes_orcamento' => $dados['observacoes_orcamento'] ?? '',
+                'status_orcamento' => $dados['status_orcamento'],
                 'data_criacao_orcamento' => now(),
                 'data_atualizacao_orcamento' => now(),
             ]);
@@ -46,18 +54,20 @@ class OrcamentoController extends Controller
             return redirect()
                 ->route('admin.orcamento.index')
                 ->with('sucesso', 'Orçamento cadastrado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (\Throwable $erro) {
             DB::rollBack();
+            report($erro);
 
             return redirect()
                 ->back()
-                ->with('erro', 'Erro ao cadastrar orçamento: ' . $e->getMessage());
+                ->withInput()
+                ->with('erro', 'Erro ao cadastrar orçamento. Verifique os dados e tente novamente.');
         }
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $dados = $request->validate([
             'id_cliente' => 'required|integer|exists:tbl_cliente,id_cliente',
             'titulo_orcamento' => 'required|string|max:50',
             'valor_total_orcamento' => 'required|numeric|min:0',
@@ -72,12 +82,12 @@ class OrcamentoController extends Controller
             $orcamento = Orcamento::findOrFail($id);
 
             $orcamento->update([
-                'id_cliente' => $request->id_cliente,
-                'titulo_orcamento' => $request->titulo_orcamento,
-                'valor_total_orcamento' => $request->valor_total_orcamento,
-                'prazo_execucao_orcamento' => $request->prazo_execucao_orcamento,
-                'observacoes_orcamento' => $request->observacoes_orcamento ?? '',
-                'status_orcamento' => $request->status_orcamento,
+                'id_cliente' => $dados['id_cliente'],
+                'titulo_orcamento' => $dados['titulo_orcamento'],
+                'valor_total_orcamento' => $dados['valor_total_orcamento'],
+                'prazo_execucao_orcamento' => $dados['prazo_execucao_orcamento'],
+                'observacoes_orcamento' => $dados['observacoes_orcamento'] ?? '',
+                'status_orcamento' => $dados['status_orcamento'],
                 'data_atualizacao_orcamento' => now(),
             ]);
 
@@ -86,18 +96,20 @@ class OrcamentoController extends Controller
             return redirect()
                 ->route('admin.orcamento.index')
                 ->with('sucesso', 'Orçamento atualizado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (\Throwable $erro) {
             DB::rollBack();
+            report($erro);
 
             return redirect()
                 ->back()
-                ->with('erro', 'Erro ao atualizar orçamento: ' . $e->getMessage());
+                ->withInput()
+                ->with('erro', 'Erro ao atualizar orçamento. Verifique os dados e tente novamente.');
         }
     }
 
     public function status(Request $request, $id)
     {
-        $request->validate([
+        $dados = $request->validate([
             'status_orcamento' => 'required|in:Pendente,Aprovado,Analise',
         ]);
 
@@ -105,14 +117,16 @@ class OrcamentoController extends Controller
             $orcamento = Orcamento::findOrFail($id);
 
             $orcamento->update([
-                'status_orcamento' => $request->status_orcamento,
+                'status_orcamento' => $dados['status_orcamento'],
                 'data_atualizacao_orcamento' => now(),
             ]);
 
             return redirect()
                 ->route('admin.orcamento.index')
                 ->with('sucesso', 'Status atualizado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (\Throwable $erro) {
+            report($erro);
+
             return redirect()
                 ->back()
                 ->with('erro', 'Erro ao atualizar status.');

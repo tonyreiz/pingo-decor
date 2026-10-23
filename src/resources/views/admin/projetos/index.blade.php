@@ -1,5 +1,10 @@
 @extends('layout.admin')
 
+
+@section('eyebrow', 'GESTÃO DE PROJETOS')
+@section('heading', 'Projetos')
+@section('description', 'Crie, edite e delete as suas projetos.')
+
 @section('actions')
     <button
         type="button"

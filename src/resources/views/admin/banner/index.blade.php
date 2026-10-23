@@ -1,5 +1,10 @@
 @extends('layout.admin')
 
+@section('eyebrow', 'GESTÃO DO BANNER')
+@section('heading', 'Banners')
+@section('description', 'Crie, delete e edite os banners do site.')
+
+
 @section('actions')
     <button
         type="button"

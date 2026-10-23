@@ -24,4 +24,12 @@ public function setSenhaFuncionarioAttribute($value)
     $this->attributes['senha_funcionario'] = bcrypt($value);
 }
 
+public function agendamentos()
+{
+    return $this->hasMany(
+        Agendamento::class,
+        'id_funcionario',
+        'id_funcionario'
+    );
+}
 }
