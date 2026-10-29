@@ -12,6 +12,9 @@
                 href="{{ route('admin.dashboard') }}"><span class="admin-nav-icon">&#xf57f;</span><span>Visão
                     geral</span></a>
 
+            <a class="admin-nav-link {{ request()->routeIs('admin.cliente.*') ? 'active' : '' }}"
+                href="{{ route('admin.cliente.index') }}"><span
+                    class="admin-nav-icon">&#xf77a;</span><span>Cliente</span></a>
 
             <a class="admin-nav-link {{ request()->routeIs('admin.funcionario.*') ? 'active' : '' }}"
                 href="{{ route('admin.funcionario.index') }}"><span
@@ -22,17 +25,11 @@
                 href="{{ route('admin.agendamento.index') }}"><span
                     class="admin-nav-icon"><i class="bi bi-calendar-date-fill"></i></span><span>agendamentos</span></a>
 
-
-            <a class="admin-nav-link {{ request()->routeIs('admin.cliente.*') ? 'active' : '' }}"
-                href="{{ route('admin.cliente.index') }}"><span
-                    class="admin-nav-icon">&#xf77a;</span><span>Cliente</span></a>
-
-
             <a class="admin-nav-link {{ request()->routeIs('admin.orcamento.*') ? 'active' : '' }}"
                 href="{{ route('admin.orcamento.index') }}"><span
                     class="admin-nav-icon">&#xf242;</span><span>Orçamentos</span></a>
 
-          
+
 
             <a class="admin-nav-link {{ request()->routeIs('admin.depoimento.*') ? 'active' : '' }}"
                 href="{{ route('admin.depoimento.index') }}"><span
