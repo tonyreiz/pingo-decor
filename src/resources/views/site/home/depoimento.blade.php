@@ -2,6 +2,8 @@
 
     <div class="roleta">
 
+
+
         @foreach($listaDepoimento as $lista)
             <div class="descricao">
                 @if($lista->cliente)
@@ -15,11 +17,11 @@
     </div>
 
     @if($listaDepoimento->count() > 1)
-        <button class="depoimento-seta depoimento-anterior" type="button" aria-label="Depoimento anterior">
-            &#10094;
-        </button>
-        <button class="depoimento-seta depoimento-proximo" type="button" aria-label="Próximo depoimento">
-            &#10095;
-        </button>
+    <button class="depoimento-seta depoimento-anterior" type="button" aria-label="Depoimento anterior">
+        &#10094;
+    </button>
+    <button class="depoimento-seta depoimento-proximo" type="button" aria-label="Próximo depoimento">
+        &#10095;
+    </button>
     @endif
 </section>

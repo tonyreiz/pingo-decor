@@ -689,6 +689,20 @@ body {
   display: none;
 }
 
+.nota{
+  display: flex !important;
+  
+}
+
+
+.estrela img{
+  margin: 0 auto !important;
+  margin-bottom: 0  !important;
+  display: flex !important;
+  width: 45px !important;
+  height: 50px !important;
+}
+
 .descricao{
   box-sizing: border-box;
   flex: 0 0 100%;
