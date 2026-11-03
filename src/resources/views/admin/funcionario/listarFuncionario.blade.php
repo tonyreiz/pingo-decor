@@ -120,7 +120,8 @@
             </div>
             <div class="admin-field admin-field-full">
                 <label for="criarFotoFuncionario">Foto</label>
-                <input id="criarFotoFuncionario" name="foto_funcionario" type="file" accept="image/*" required>
+                <input id="criarFotoFuncionario" name="foto_funcionario" type="file" accept="image/jpeg,image/png,image/webp">
+                <small>Opcional. Se não enviar uma foto, será usada a imagem padrão.</small>
             </div>
         </div>
     </form>
