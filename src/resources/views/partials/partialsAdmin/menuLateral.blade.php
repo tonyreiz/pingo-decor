@@ -31,6 +31,9 @@
 
 
 
+            <a class="admin-nav-link {{ request()->routeIs('admin.formulario.*') ? 'active' : '' }}"
+                href="{{ route('admin.formulario.index') }}"><span class="admin-nav-icon"><i class="bi bi-clipboard2-check"></i></span><span>Solicitações</span></a>
+
             <a class="admin-nav-link {{ request()->routeIs('admin.depoimento.*') ? 'active' : '' }}"
                 href="{{ route('admin.depoimento.index') }}"><span
                     class="admin-nav-icon">&#xf255;</span><span>Depoimento</span></a>

@@ -24,8 +24,9 @@ class ClienteController extends Controller
         $dados = $request->validate([
             'nome_cliente' => 'required|string|max:50',
             'email_cliente' => 'required|email|max:80|unique:tbl_cliente,email_cliente',
+            'telefone_cliente' => 'nullable|string|max:20',
             'senha_cliente' => 'required|string|min:6|max:255',
-            'foto_cliente' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'foto_cliente' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'status_cliente' => 'required|in:Ativo,Inativo',
         ]);
 
@@ -37,14 +38,17 @@ class ClienteController extends Controller
             $cliente = Cliente::create([
                 'nome_cliente' => $dados['nome_cliente'],
                 'email_cliente' => $dados['email_cliente'],
+                'telefone_cliente' => $dados['telefone_cliente'] ?? null,
                 'senha_cliente' => Hash::make($dados['senha_cliente']),
-                'foto_cliente' => 'cliente/sem-foto.png',
+                'foto_cliente' => 'imagem-indisponivel.svg',
                 'status_cliente' => $dados['status_cliente'],
             ]);
 
-            $caminhoRelativo = $this->salvarImagem($request->file('foto_cliente'), $cliente);
-            $novoArquivo = public_path('pingo-decor/assets/cliente/' . $caminhoRelativo);
-            $cliente->update(['foto_cliente' => $caminhoRelativo]);
+            if ($request->hasFile('foto_cliente')) {
+                $caminhoRelativo = $this->salvarImagem($request->file('foto_cliente'), $cliente);
+                $novoArquivo = public_path('pingo-decor/assets/' . $caminhoRelativo);
+                $cliente->update(['foto_cliente' => $caminhoRelativo]);
+            }
 
             DB::commit();
 
@@ -68,6 +72,7 @@ class ClienteController extends Controller
         $dados = $request->validate([
             'nome_cliente' => 'required|string|max:50',
             'email_cliente' => 'required|email|max:80|unique:tbl_cliente,email_cliente,' . $id . ',id_cliente',
+            'telefone_cliente' => 'nullable|string|max:20',
             'foto_cliente' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'status_cliente' => 'required|in:Ativo,Inativo',
         ]);
@@ -89,6 +94,7 @@ class ClienteController extends Controller
             $cliente->update([
                 'nome_cliente' => $dados['nome_cliente'],
                 'email_cliente' => $dados['email_cliente'],
+                'telefone_cliente' => $dados['telefone_cliente'] ?? null,
                 'foto_cliente' => $caminhoFoto,
                 'status_cliente' => $dados['status_cliente'],
             ]);

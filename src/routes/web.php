@@ -26,6 +26,7 @@ Route::get('/projetos', [ProjetosController::class, 'index'])->name('projetos.in
 Route::get('/projetos/{projeto}', [ProjetosController::class, 'show'])->name('projetos.show');
 Route::get('/publicacoes', [PublicacoesController::class, 'index'])->name('publicacoes');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('contato');
+Route::post('/contato', [ContatoController::class, 'enviar'])->name('contato.enviar');
 
 // Os endereços antigos continuam funcionando como redirecionamentos.
 Route::redirect('/index.html', '/');
@@ -70,6 +71,7 @@ Route::middleware('auth')->group(function () {
     // Painel administrativo.
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('/formularios', [\App\Http\Controllers\Admin\FormularioController::class, 'index'])->name('formulario.index');
 
         Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamento.index');
         Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamento.store');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\PublicImageStorage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
@@ -24,6 +25,7 @@ class Cliente extends Model
     protected $fillable = [
         'nome_cliente',
         'email_cliente',
+        'telefone_cliente',
         'senha_cliente',
         'foto_cliente',
         'status_cliente',
@@ -66,5 +68,10 @@ class Cliente extends Model
 
 public function agendamentos(){
     return $this->hasMany(Agendamento::class,'id_cliente','id_cliente');
+}
+
+public function favoritos(): HasMany
+{
+    return $this->hasMany(Favoritos::class, 'id_cliente', 'id_cliente');
 }
 }

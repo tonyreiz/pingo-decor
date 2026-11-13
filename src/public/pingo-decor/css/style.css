@@ -560,7 +560,7 @@ body {
   background: #b8c7b1;
   padding: 50px;
   border-radius: 20px;
-  max-width: 650px;
+  max-width: 800px;
   width: 100%;
 }
 
@@ -594,19 +594,66 @@ body {
   margin-bottom: 35px;
 }
 
-.card-proposta a {
-  display: inline-block;
-  background: var(--cor-cinza-claro);
-  color: #9b9b9b;
-  text-decoration: none;
-  padding: 18px 35px;
-  border-radius: 10px;
-  font-weight: bold;
-  transition: 0.3s;
+.formulario-contato {
+  display: grid;
+  gap: 18px;
+  text-align: left;
 }
 
-.card-proposta a:hover {
-  transform: scale(1.05);
+.campo-contato {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.campo-contato label {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.campo-contato input,
+.campo-contato textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, .65);
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+.campo-contato textarea {
+  resize: vertical;
+}
+
+.campo-contato small {
+  color: #7b2020;
+  font-size: 13px;
+}
+
+.formulario-contato button {
+  grid-column: 1 / -1;
+  padding: 15px 24px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--cor-cinza-claro);
+  color: #665b55;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contato-sucesso {
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+  color: #315a35 !important;
+}
+
+@media (max-width: 640px) {
+  .card-proposta { padding: 30px 20px; }
+  .formulario-contato { grid-template-columns: 1fr; }
 }
 
 /* Identidade visual e navega??o compartilhada pelas views Blade. */
