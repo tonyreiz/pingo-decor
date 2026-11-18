@@ -19,11 +19,6 @@ class Funcionario extends Model
         'status_funcionario',
         'telefone_funcionario',
     ];
-public function setSenhaFuncionarioAttribute($value)
-{
-    $this->attributes['senha_funcionario'] = bcrypt($value);
-}
-
 public function agendamentos()
 {
     return $this->hasMany(
