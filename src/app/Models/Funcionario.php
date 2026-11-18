@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Funcionario extends Model
 {
@@ -26,5 +27,10 @@ public function agendamentos()
         'id_funcionario',
         'id_funcionario'
     );
+}
+
+public function atualizacoesObra(): HasMany
+{
+    return $this->hasMany(AtualizacaoObra::class, 'id_funcionario', 'id_funcionario');
 }
 }

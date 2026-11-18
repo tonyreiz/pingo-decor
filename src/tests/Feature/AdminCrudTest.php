@@ -349,6 +349,7 @@ class AdminCrudTest extends TestCase
             $table->increments('id_cliente');
             $table->string('nome_cliente', 50);
             $table->string('email_cliente', 80)->unique();
+            $table->string('telefone_cliente', 20)->nullable();
             $table->string('senha_cliente', 255);
             $table->string('foto_cliente', 255);
             $table->string('status_cliente', 10);
