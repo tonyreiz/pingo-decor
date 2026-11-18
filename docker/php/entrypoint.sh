@@ -38,9 +38,23 @@ if [ -d /var/www ]; then
 
     cd /var/www
 
-    if [ -f artisan ] && [ -f vendor/autoload.php ]; then
-        php artisan storage:link --no-interaction 2>/dev/null || true
-        php artisan migrate --force --no-interaction
+    if [ -f artisan ] && [ -f composer.json ]; then
+        if [ ! -f .env ] && [ -f .env.example ]; then
+            cp .env.example .env
+        fi
+
+        if [ ! -f vendor/autoload.php ]; then
+            composer install --no-interaction --prefer-dist
+        fi
+
+        if [ -f vendor/autoload.php ]; then
+            if ! grep -q '^APP_KEY=base64:' .env 2>/dev/null; then
+                php artisan key:generate --force --no-interaction
+            fi
+
+            php artisan storage:link --no-interaction 2>/dev/null || true
+            php artisan migrate --force --no-interaction
+        fi
     fi
 fi
 
