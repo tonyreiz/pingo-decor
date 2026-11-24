@@ -36,6 +36,8 @@
                     </div>
                     <button type="button" class="admin-alert-close" data-admin-alert-close aria-label="Fechar aviso">&times;</button>
                 </div>
+
+                
             @endif
 
             @yield('content')

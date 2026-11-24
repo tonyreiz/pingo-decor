@@ -32,6 +32,7 @@
             <p>{{ $lista->descricao_depoimento }}</p>
         </div>
         @endforeach
+   
     </div>
 
     @if($listaDepoimento->count() > 1)
@@ -42,4 +43,6 @@
         &#10095;
     </button>
     @endif
+
+    
 </section>
