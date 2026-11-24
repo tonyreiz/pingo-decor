@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_formulario', function (Blueprint $table) {
-            $table->integer('id_formulario', true);
+            $table->increments('id_formulario');
             $table->string('nome');
             $table->string('email');
             $table->string('telefone', 20);

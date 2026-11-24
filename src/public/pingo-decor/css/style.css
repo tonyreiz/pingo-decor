@@ -83,7 +83,7 @@ body {
 .texto {
   padding: 80px 20px;
   text-align: center;
-  
+
 }
 
 .texto .site {
@@ -96,8 +96,9 @@ body {
   line-height: 1.7;
   color: #333;
 }
-.site>img{
-  margin-bottom: 50px ;
+
+.site>img {
+  margin-bottom: 50px;
 }
 
 /* BANNER */
@@ -334,7 +335,7 @@ body {
   background-color: #f7f7f7;
 }
 
-.titulo{
+.titulo {
   font-size: 30px;
   font-weight: 800;
   color: #ec9b5d;
@@ -348,7 +349,7 @@ body {
   position: relative;
   border-radius: 16px;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .projeto img {
@@ -370,33 +371,33 @@ body {
 
 /* Estilo do botão Veja Mais */
 .veja {
-    display: flex;
-    justify-content: end;
-    align-items: end;
-    margin: 20px 40px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  margin: 20px 40px;
 }
 
 .veja a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--cor-primaria);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    height: 50px;
-    width: 120px;
-    text-align: center;
-    text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 50px;
+  width: 120px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .veja a:hover {
-    background: var(--cor-primaria-clara);
-    transform: scale(1.05);
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.521);
+  background: var(--cor-primaria-clara);
+  transform: scale(1.05);
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.521);
 }
 
 .btn-voltar {
@@ -527,13 +528,18 @@ body {
 .contato {
   min-height: 100vh;
   display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+}
+
+
+
+.map {
+  display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 40px 20px;
-  background: #e7eee6;
-  /* verde suave */
+  justify-content: space-around;
+  margin-top: 375px
 }
 
 /* pode apagar se remover o título do HTML */
@@ -557,38 +563,22 @@ body {
 }
 
 .card-proposta {
-  background: #b8c7b1;
   padding: 50px;
   border-radius: 20px;
   max-width: 800px;
   width: 100%;
 }
 
-.icone {
-  width: 70px;
-  height: 70px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 25px;
-}
-
-.icone i {
-  font-size: 28px;
-  color: #b98f8f;
-}
-
 .card-proposta h2 {
   font-size: 42px;
-  color: #fff;
+  color: var(--cor-primaria-escura);
   font-weight: 300;
   margin-bottom: 20px;
+  font-family: var(--font-principal);
 }
 
 .card-proposta p {
-  color: #fff;
+  color: var(--cor-texto);
   font-size: 17px;
   line-height: 1.6;
   margin-bottom: 35px;
@@ -606,22 +596,55 @@ body {
   gap: 7px;
 }
 
-.campo-contato label {
-  color: #fff;
-  font-size: 14px;
+
+
+.campo-contato,
+.campo-contato-meio,
+.campo-contato-descricao label {
+  color: var(--cor-primaria-escura);
+  font-size: 16px;
   font-weight: 600;
 }
 
 .campo-contato input,
 .campo-contato textarea {
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid rgba(255, 255, 255, .65);
+  padding: 15px 0;
+  border: 2px solid var(--cor-primaria);
   border-radius: 8px;
   background: #fff;
   color: #333;
   font: inherit;
 }
+
+.campo-duplo {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.campo-contato-meio input,
+.campo-contato-meio textarea {
+  width: 100%;
+  padding: 15px 0;
+  border: 2px solid var(--cor-primaria);
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+.campo-contato-descricao input,
+.campo-contato-descricao textarea {
+  width: 100%;
+  padding: 15px 0 135px;
+  border: 2px solid var(--cor-primaria);
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
 
 .campo-contato textarea {
   resize: vertical;
@@ -632,16 +655,28 @@ body {
   font-size: 13px;
 }
 
-.formulario-contato button {
+.map button {
   grid-column: 1 / -1;
-  padding: 15px 24px;
+  padding: 26px 240px;
   border: 0;
   border-radius: 10px;
-  background: var(--cor-cinza-claro);
-  color: #665b55;
+  background: var(--cor-primaria);
+  color: #fff;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.map button:hover {
+  transform: scale(1.05);
+}
+
+.sucesso{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto 50px;
 }
 
 .contato-sucesso {
@@ -649,11 +684,17 @@ body {
   border-radius: 8px;
   background: #fff;
   color: #315a35 !important;
+  font-size: 22px !important;
 }
 
 @media (max-width: 640px) {
-  .card-proposta { padding: 30px 20px; }
-  .formulario-contato { grid-template-columns: 1fr; }
+  .card-proposta {
+    padding: 30px 20px;
+  }
+
+  .formulario-contato {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Identidade visual e navega??o compartilhada pelas views Blade. */
@@ -684,7 +725,7 @@ body {
 
 /* DEPOIMENTOS */
 
-.depoimento{
+.depoimento {
   position: relative;
   display: flex;
   height: 720px;
@@ -736,21 +777,21 @@ body {
   display: none;
 }
 
-.nota{
+.nota {
   display: flex !important;
-  
+
 }
 
 
-.estrela img{
+.estrela img {
   margin: 0 auto !important;
-  margin-bottom: 0  !important;
+  margin-bottom: 0 !important;
   display: flex !important;
   width: 45px !important;
   height: 50px !important;
 }
 
-.descricao{
+.descricao {
   box-sizing: border-box;
   flex: 0 0 100%;
   height: 500px;
@@ -762,7 +803,7 @@ body {
   scroll-snap-align: start;
 }
 
-.descricao img{
+.descricao img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -770,7 +811,7 @@ body {
   margin-bottom: 30px;
 }
 
-.descricao h1{
+.descricao h1 {
   font-size: 30px;
   margin-top: 35px;
   font-weight: 800;
@@ -778,7 +819,7 @@ body {
   font-family: var(--font-principal);
 }
 
-.descricao p{
+.descricao p {
   font-size: 22px;
   margin-top: 20px;
   text-align: center;

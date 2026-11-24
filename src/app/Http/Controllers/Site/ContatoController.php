@@ -26,8 +26,7 @@ class ContatoController extends Controller
             'tipo_projeto' => 'required|string|max:255',
             'metragem' => 'nullable|numeric|min:0',
             'prazo' => 'nullable|string|max:255',
-            'descricao' => 'nullable|string|max:10000',
-            'observacoes' => 'nullable|string|max:10000',
+            'descricao' => 'nullable|string|max:1000'
         ]);
 
         Formulario::create($dados + [

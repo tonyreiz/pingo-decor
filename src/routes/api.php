@@ -2,20 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\V1\StatusController;
 use App\Http\Controllers\Api\V1\ProjetoController;
-<<<<<<< HEAD
-
-Route::prefix('v1')->group(function (){
-    Route::get('/status', [StatusController::class, 'index']);
-
-    Route::get('/projetos', [ProjetoController::class,'index']);
-});
-=======
-use App\Http\Controllers\Api\V1\FavoritoController;
+use App\Http\Controllers\Api\V1\StatusController;
 use App\Http\Controllers\Api\V1\FormularioController;
 use App\Http\Controllers\Api\V1\AtualizacaoObraController;
 use App\Http\Controllers\Api\V1\DepoimentoController;
+use App\Http\Controllers\Api\V1\FavoritoController;
 
 
 Route::prefix('v1')->group(function () {
@@ -43,4 +35,3 @@ Route::prefix('v1')->group(function () {
     // FORMULÁRIOS
     Route::post('/formularios', [FormularioController::class, 'store']);
 });
->>>>>>> f30b79df22c92191e91a2d49923c7f17aebc471b
