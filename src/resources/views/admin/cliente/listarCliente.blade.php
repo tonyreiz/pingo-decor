@@ -23,6 +23,7 @@
                     <th scope="col">Foto</th>
                     <th scope="col">Nome</th>
                     <th scope="col">E-mail</th>
+                    <th scope="col">Telefone</th>
                     <th scope="col">Senha</th>
                     <th scope="col">Status</th>
                     <th scope="col">Atualizado em</th>
@@ -40,6 +41,7 @@
                         </td>
                         <td><span class="cell-primary">{{ data_get($cliente, 'nome_cliente') }}</span></td>
                         <td>{{ data_get($cliente, 'email_cliente') }}</td>
+                        <td>{{ data_get($cliente, 'telefone_cliente') ?: '—' }}</td>
                         <td>{{ data_get($cliente, 'senha_cliente') }}</td>
                         <td>
                             @php($statusCliente = trim((string) data_get($cliente, 'status_cliente')))
@@ -67,7 +69,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">Nenhum cliente cadastrado.</td>
+                        <td colspan="8">Nenhum cliente cadastrado.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -96,6 +98,10 @@
                 <input id="criarEmailCliente" name="email_cliente" type="email" placeholder="nome@exemplo.com" required>
             </div>
             <div class="admin-field">
+                <label for="criarTelefoneCliente">Telefone</label>
+                <input id="criarTelefoneCliente" name="telefone_cliente" type="tel" maxlength="20" autocomplete="tel" placeholder="(11) 99999-9999">
+            </div>
+            <div class="admin-field">
                 <label for="criarSenhaCliente">Senha</label>
                 <input id="criarSenhaCliente" name="senha_cliente" type="password" minlength="6" placeholder="Digite uma senha" required>
             </div>
@@ -108,7 +114,8 @@
             </div>
             <div class="admin-field admin-field-full">
                 <label for="criarFotoCliente">Foto</label>
-                <input id="criarFotoCliente" name="foto_cliente" type="file" accept="image/*" required>
+                <input id="criarFotoCliente" name="foto_cliente" type="file" accept="image/*">
+                <small>Opcional. Se não enviar uma foto, será usada a imagem padrão.</small>
             </div>
         </div>
     </form>
@@ -149,6 +156,18 @@
                         type="email"
                         value="{{ data_get($cliente, 'email_cliente') }}"
                         required
+                    >
+                </div>
+                <div class="admin-field">
+                    <label for="editarTelefoneCliente{{ $cliente->id_cliente }}">Telefone</label>
+                    <input
+                        id="editarTelefoneCliente{{ $cliente->id_cliente }}"
+                        name="telefone_cliente"
+                        type="tel"
+                        maxlength="20"
+                        autocomplete="tel"
+                        value="{{ data_get($cliente, 'telefone_cliente') }}"
+                        placeholder="(11) 99999-9999"
                     >
                 </div>
                 <div class="admin-field">

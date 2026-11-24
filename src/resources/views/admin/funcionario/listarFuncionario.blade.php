@@ -24,8 +24,8 @@
                     <th scope="col">Foto</th>
                     <th scope="col">Nome</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Senha</th>
                     <th scope="col">Telefone</th>
+                    <th scope="col">Senha</th>
                     <th scope="col">Cargo</th>
                     <th scope="col">Status</th>
                     <th scope="col">Ações</th>
@@ -43,8 +43,8 @@
                     </td>
                     <td><span class="cell-primary">{{ data_get($lista, 'nome_funcionario') }}</span></td>
                     <td>{{ data_get($lista, 'email_funcionario') }}</td>
-                    <td>{{ data_get($lista, 'senha_funcionario') }}</td>
                     <td>{{ data_get($lista, 'telefone_funcionario') }}</td>
+                    <td>{{ data_get($lista, 'senha_funcionario') }}</td>
                     <td>{{ data_get($lista, 'cargo_funcionario') }}</td>
                     <td>
                         @php($statusFuncionario = trim((string) data_get($lista, 'status_funcionario')))
@@ -120,7 +120,8 @@
             </div>
             <div class="admin-field admin-field-full">
                 <label for="criarFotoFuncionario">Foto</label>
-                <input id="criarFotoFuncionario" name="foto_funcionario" type="file" accept="image/*" required>
+                <input id="criarFotoFuncionario" name="foto_funcionario" type="file" accept="image/jpeg,image/png,image/webp">
+                <small>Opcional. Se não enviar uma foto, será usada a imagem padrão.</small>
             </div>
         </div>
     </form>

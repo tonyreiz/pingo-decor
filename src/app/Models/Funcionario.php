@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Funcionario extends Model
 {
@@ -19,11 +20,6 @@ class Funcionario extends Model
         'status_funcionario',
         'telefone_funcionario',
     ];
-public function setSenhaFuncionarioAttribute($value)
-{
-    $this->attributes['senha_funcionario'] = bcrypt($value);
-}
-
 public function agendamentos()
 {
     return $this->hasMany(
@@ -31,5 +27,10 @@ public function agendamentos()
         'id_funcionario',
         'id_funcionario'
     );
+}
+
+public function atualizacoesObra(): HasMany
+{
+    return $this->hasMany(AtualizacaoObra::class, 'id_funcionario', 'id_funcionario');
 }
 }

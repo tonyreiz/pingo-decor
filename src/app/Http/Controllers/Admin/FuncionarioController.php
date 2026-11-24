@@ -30,7 +30,7 @@ class FuncionarioController extends Controller
             'senha_funcionario' => 'required|string|min:6|max:255',
             'telefone_funcionario' => 'required|string|min:6|max:15',
             'cargo_funcionario' => 'required|string|min:6|max:20',
-            'foto_funcionario' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'foto_funcionario' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'status_funcionario' => 'required|in:Ativo,Inativo',
         ]);
 
@@ -43,15 +43,17 @@ class FuncionarioController extends Controller
                 'nome_funcionario' => $dados['nome_funcionario'],
                 'email_funcionario' => $dados['email_funcionario'],
                 'senha_funcionario' => Hash::make($dados['senha_funcionario']),
-                'foto_funcionario' => 'funcionario/sem-foto.png',
+                'foto_funcionario' => 'imagem-indisponivel.svg',
                 'cargo_funcionario' => $dados['cargo_funcionario'],
                 'telefone_funcionario' => $dados['telefone_funcionario'],
                 'status_funcionario' => $dados['status_funcionario'],
             ]);
 
-            $caminhoRelativo = $this->salvarImagem($request->file('foto_funcionario'), $funcionario);
-            $novoArquivo = public_path('pingo-decor/assets/' . $caminhoRelativo);
-            $funcionario->update(['foto_funcionario' => $caminhoRelativo]);
+            if ($request->hasFile('foto_funcionario')) {
+                $caminhoRelativo = $this->salvarImagem($request->file('foto_funcionario'), $funcionario);
+                $novoArquivo = public_path('pingo-decor/assets/' . $caminhoRelativo);
+                $funcionario->update(['foto_funcionario' => $caminhoRelativo]);
+            }
 
             DB::commit();
 

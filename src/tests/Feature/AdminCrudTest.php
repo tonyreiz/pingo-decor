@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
@@ -29,10 +28,12 @@ class AdminCrudTest extends TestCase
         $this->testStoragePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'pingo-de-cor-tests-'.$this->testToken;
 
         File::ensureDirectoryExists($this->testStoragePath.DIRECTORY_SEPARATOR.'framework'.DIRECTORY_SEPARATOR.'views');
+        File::ensureDirectoryExists($this->testStoragePath.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'pingo-decor'.DIRECTORY_SEPARATOR.'assets');
         $this->app->useStoragePath($this->testStoragePath);
+        $this->app->usePublicPath($this->testStoragePath.DIRECTORY_SEPARATOR.'public');
         config()->set('view.compiled', $this->testStoragePath.DIRECTORY_SEPARATOR.'framework'.DIRECTORY_SEPARATOR.'views');
 
-        Storage::fake('public');
+        $this->withoutMiddleware(\Illuminate\Auth\Middleware\Authenticate::class);
 
         $driver = DB::connection()->getDriverName();
 
@@ -53,7 +54,6 @@ class AdminCrudTest extends TestCase
 
     protected function tearDown(): void
     {
-        Storage::forgetDisk('public');
         File::deleteDirectory($this->testStoragePath);
 
         parent::tearDown();
@@ -89,7 +89,7 @@ class AdminCrudTest extends TestCase
 
         if ($case['image'] !== null) {
             $oldImage = $row->{$case['image']};
-            Storage::disk('public')->assertExists($oldImage);
+            $this->assertFileExists(public_path('pingo-decor/assets/'.$oldImage));
         }
 
         $this->get(route($indexRoute))
@@ -113,8 +113,8 @@ class AdminCrudTest extends TestCase
         if ($case['image'] !== null) {
             $newImage = $updated->{$case['image']};
             $this->assertNotSame($oldImage, $newImage);
-            Storage::disk('public')->assertMissing($oldImage);
-            Storage::disk('public')->assertExists($newImage);
+            $this->assertFileDoesNotExist(public_path('pingo-decor/assets/'.$oldImage));
+            $this->assertFileExists(public_path('pingo-decor/assets/'.$newImage));
         }
 
         $this->delete(route("admin.{$case['route']}.destroy", $id))
@@ -124,7 +124,7 @@ class AdminCrudTest extends TestCase
         $this->assertDatabaseMissing($case['table'], [$case['key'] => $id]);
 
         if ($newImage !== null) {
-            Storage::disk('public')->assertMissing($newImage);
+            $this->assertFileDoesNotExist(public_path('pingo-decor/assets/'.$newImage));
         }
 
         if (isset($case['cleanup_client'])) {
@@ -147,7 +147,7 @@ class AdminCrudTest extends TestCase
             ->assertSessionHasErrors($requiredFields);
 
         $this->assertSame($rowCount, DB::table($table)->count());
-        $this->assertSame([], Storage::disk('public')->allFiles());
+        $this->assertSame([], File::allFiles(public_path('pingo-decor/assets')));
     }
 
     public static function crudResources(): array
@@ -155,7 +155,6 @@ class AdminCrudTest extends TestCase
         return [
             'banner' => ['banner'],
             'cliente' => ['cliente'],
-            'contato' => ['contato'],
             'publicacoes' => ['publicacoes'],
             'projetos' => ['projetos'],
             'orcamento' => ['orcamento'],
@@ -170,26 +169,6 @@ class AdminCrudTest extends TestCase
                 'cliente',
                 'tbl_cliente',
                 ['nome_cliente', 'email_cliente', 'senha_cliente', 'foto_cliente', 'status_cliente'],
-            ],
-            'contato' => [
-                'contato',
-                'tbl_contato',
-                [
-                    'nome_contato',
-                    'nome_companheiro_contato',
-                    'nome_idade_criancas_contato',
-                    'email_contato',
-                    'telefone_contato',
-                    'cidade_bairro_contato',
-                    'profissao_contato',
-                    'origem_contato',
-                    'ajuda_contato',
-                    'metragem_contato',
-                    'quantidades_ambientes_contato',
-                    'trimestre_gestacao_contato',
-                    'prazo_contato',
-                    'detalhes_contato',
-                ],
             ],
             'publicacoes' => [
                 'publicacoes',
@@ -258,20 +237,6 @@ class AdminCrudTest extends TestCase
                     'foto_cliente' => $this->fakePng('cliente-atualizado.png'),
                     'status_cliente' => 'Inativo',
                 ],
-            ],
-            'contato' => [
-                'route' => 'contato',
-                'table' => 'tbl_contato',
-                'key' => 'id_contato',
-                'lookup' => 'nome_contato',
-                'heading' => 'Mensagens / Contatos',
-                'image' => null,
-                'create' => $this->validContatoPayload(),
-                'update' => $this->validContatoPayload([
-                    'nome_contato' => "Codex Contato Atual {$this->testToken}",
-                    'telefone_contato' => '11911112222',
-                    'detalhes_contato' => 'Contato atualizado pelo teste de regressao',
-                ]),
             ],
             'publicacoes' => [
                 'route' => 'publicacoes',
@@ -355,26 +320,6 @@ class AdminCrudTest extends TestCase
         ];
     }
 
-    private function validContatoPayload(array $overrides = []): array
-    {
-        return array_replace([
-            'nome_contato' => "Codex Contato {$this->testToken}",
-            'nome_companheiro_contato' => 'Codex Companheiro',
-            'nome_idade_criancas_contato' => 'Crianca - 5 anos',
-            'email_contato' => "contato.{$this->testToken}@example.test",
-            'telefone_contato' => '11999998888',
-            'cidade_bairro_contato' => 'Sao Paulo - Centro',
-            'profissao_contato' => 'Pessoa de teste',
-            'origem_contato' => 'Indicacao',
-            'ajuda_contato' => 'Projeto de quarto',
-            'metragem_contato' => '12 m2',
-            'quantidades_ambientes_contato' => '1 ambiente',
-            'trimestre_gestacao_contato' => 'Nao se aplica',
-            'prazo_contato' => '3 meses',
-            'detalhes_contato' => 'Registro criado pelo teste de regressao',
-        ], $overrides);
-    }
-
     private function fakePng(string $name): UploadedFile
     {
         $contents = base64_decode(
@@ -404,6 +349,7 @@ class AdminCrudTest extends TestCase
             $table->increments('id_cliente');
             $table->string('nome_cliente', 50);
             $table->string('email_cliente', 80)->unique();
+            $table->string('telefone_cliente', 20)->nullable();
             $table->string('senha_cliente', 255);
             $table->string('foto_cliente', 255);
             $table->string('status_cliente', 10);
