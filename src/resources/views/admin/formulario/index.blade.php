@@ -42,9 +42,14 @@
                                 @if (!$formulario->profissao && !$formulario->descricao && !$formulario->observacoes)—@endif
                             </td>
                             <td>
-                                <button type="button" class="admin-action" data-admin-modal-open="modalClienteFormulario{{ $formulario->id_formulario }}" aria-haspopup="dialog">
-                                    Criar cliente
-                                </button>
+                                <div class="admin-actions">
+                                    <button type="button" class="admin-action" data-admin-modal-open="modalClienteFormulario{{ $formulario->id_formulario }}" aria-haspopup="dialog">
+                                        Criar cliente
+                                    </button>
+                                    <button type="button" class="admin-action admin-action-danger" data-admin-modal-open="modalExcluirFormulario{{ $formulario->id_formulario }}" aria-haspopup="dialog">
+                                        Excluir
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -99,6 +104,24 @@
             <x-slot name="footer">
                 <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
                 <button type="submit" class="admin-primary-btn" form="formClienteFormulario{{ $formulario->id_formulario }}">Cadastrar cliente</button>
+            </x-slot>
+        </x-admin.modal>
+
+        <x-admin.modal id="modalExcluirFormulario{{ $formulario->id_formulario }}" title="Excluir solicitação" size="small" variant="danger">
+            <form id="formExcluirFormulario{{ $formulario->id_formulario }}" action="{{ route('admin.formulario.destroy', $formulario->id_formulario) }}" method="POST">
+                @csrf
+                @method('DELETE')
+            </form>
+            <div class="admin-delete-message">
+                <span class="admin-delete-icon" aria-hidden="true">!</span>
+                <div>
+                    <p>Tem certeza que deseja excluir a solicitação de <strong>{{ $formulario->nome }}</strong>?</p>
+                    <small>Esta ação não poderá ser desfeita.</small>
+                </div>
+            </div>
+            <x-slot name="footer">
+                <button type="button" class="admin-outline-btn" data-admin-modal-close>Cancelar</button>
+                <button type="submit" class="admin-danger-btn" form="formExcluirFormulario{{ $formulario->id_formulario }}">Excluir solicitação</button>
             </x-slot>
         </x-admin.modal>
     @endforeach

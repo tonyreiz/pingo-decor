@@ -27,4 +27,13 @@ class FormularioController extends Controller
 
         return view('admin.formulario.index', compact('formularios'));
     }
+
+    public function destroy(int $id)
+    {
+        Formulario::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('admin.formulario.index')
+            ->with('sucesso', 'Solicitação excluída com sucesso.');
+    }
 }
