@@ -39,8 +39,7 @@ if [ -d /var/www ]; then
     cd /var/www
 
     if [ -f artisan ] && [ -f vendor/autoload.php ]; then
-        php artisan storage:link --no-interaction 2>/dev/null || true
-        php artisan migrate --force --no-interaction
+        php artisan storage:link --force --no-interaction >/dev/null 2>&1 || true
     fi
 fi
 

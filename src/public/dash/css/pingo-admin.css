@@ -395,7 +395,7 @@ button.admin-primary-btn:disabled {
     width: 46%;
     background:
         linear-gradient(90deg, #e8d0be 0%, transparent 55%),
-        url("pingo-decor/assets/img/bannerPingoDecor.png") center/cover no-repeat;
+        url("/pingo-decor/assets/img/bannerPingoDecor.jpg") center/cover no-repeat;
     opacity: 0.8;
 }
 .admin-hero-content {
@@ -1692,5 +1692,4 @@ body.admin-modal-open {
 .login-footer small {
     font-size: 11px;
 }
-
 

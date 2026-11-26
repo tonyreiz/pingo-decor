@@ -1,5 +1,5 @@
 @php
-  $bannerPadrao = 'pingo-decor/assets/img/bannerPingoDecor.png';
+  $bannerPadrao = 'pingo-decor/assets/img/bannerPingoDecor.jpg';
   $caminhoBanner = isset($bannerPrincipal)
     ? 'pingo-decor/assets/' . ltrim($bannerPrincipal->imagem_banner, '/')
     : $bannerPadrao;
