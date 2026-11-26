@@ -12,20 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_formulario', function (Blueprint $table) {
-            $table->id('id_formulario');
+            $table->increments('id_formulario');
             $table->string('nome');
-            $table->string('telefone', 20);
             $table->string('email');
+            $table->string('telefone', 20);
             $table->string('endereco');
             $table->string('profissao')->nullable();
             $table->string('tipo_projeto');
-            $table->decimal('metragem', 10, 2)->nullable();
+            $table->decimal('metragem')->nullable();
             $table->string('prazo')->nullable();
             $table->text('descricao')->nullable();
             $table->text('observacoes')->nullable();
-            $table->string('status_formulario', 30)->default('Novo');
-            $table->timestamp('data_criacao_formulario')->nullable();
-            $table->timestamp('data_atualizacao_formulario')->nullable();
+            $table->string('status_formulario', 10)->default('pendente');
+            $table->dateTime('data_criacao_formulario')->useCurrent();
+            $table->dateTime('data_atualizacao_formulario')->useCurrentOnUpdate()->useCurrent();
         });
     }
 
