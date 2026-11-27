@@ -116,10 +116,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/agendamento', [AgendamentoController::class, 'store'])->name('agendamento.store');
         Route::put('/agendamento/{id}', [AgendamentoController::class, 'update'])->name('agendamento.update');
         Route::delete('/agendamento/{id}', [AgendamentoController::class, 'destroy'])->name('agendamento.destroy');
-        Route::patch('/agendamento/{id}/status', [AgendamentoController::class, 'status'])->name('agendamento.status');
+        Route::put('/agendamento/{id}/status', [AgendamentoController::class, 'status'])->name('agendamento.status');
 
         Route::get('/depoimentos', [DepoimentoController::class, 'index'])->name('depoimento.index');
         Route::put('/depoimentos/{id}', [DepoimentoController::class, 'update'])->name('depoimento.update');
-        Route::patch('/depoimentos/{id}/status', [DepoimentoController::class, 'status'])->name('depoimento.status');
+        Route::put('/depoimentos/{id}/status', [DepoimentoController::class, 'status'])->name('depoimento.status');
     });
 });

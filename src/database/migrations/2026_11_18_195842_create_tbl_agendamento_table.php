@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_agendamento', function (Blueprint $table) {
             $table->integer('id_agendamento', true);
             $table->integer('id_cliente')->index('fk_agendamento_cliente');
-            $table->integer('id_funcionario')->index('fk_agendamento_funcionario');
+            $table->integer('id_funcionario')->nullable()->index('fk_agendamento_funcionario');
             $table->date('dia_agendamento');
             $table->time('horario_agendamento');
             $table->string('status_agendamento', 50);

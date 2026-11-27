@@ -136,7 +136,7 @@
                                 method="POST"
                             >
                                 @csrf
-                                @method('PATCH')
+                                @method('PUT')
 
                                 @if ($depoimento->status_depoimento === 'Ativo')
                                     <input type="hidden" name="status_depoimento" value="Inativo">

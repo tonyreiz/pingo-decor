@@ -343,8 +343,7 @@ tbody tr:hover {
 
 .method-get { background: #e5f0e7; color: #315c39; }
 .method-post { background: #f7ead6; color: #754c12; }
-.method-put,
-.method-patch { background: #e8e6f3; color: #514b7d; }
+.method-put { background: #e8e6f3; color: #514b7d; }
 .method-delete { background: #f6e2df; color: #843b34; }
 
 .route {

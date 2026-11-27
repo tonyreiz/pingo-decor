@@ -17,6 +17,11 @@
             ['Sistema', 'Endpoint de saúde da API para monitoramento da disponibilidade do serviço.', [
                 ['GET','/status','Consultar status da API e identificação da aplicação',true],
             ]],
+            ['Formulários', null, [
+                ['POST','/formularios','Receber um formulário',false],
+                ['GET','/formularios','Listar os formulários',false],
+                ['GET','/formularios/{id}','Consultar um formulário específico',false],
+            ]],
             ['Autenticação', null, [
                 ['POST','/register','Cadastrar cliente',false], ['POST','/login','Realizar login',false], ['POST','/logout','Encerrar sessão',false],
                 ['POST','/password/forgot','Solicitar recuperação de senha',false], ['POST','/password/verify','Verificar código de recuperação',false],
@@ -37,11 +42,11 @@
             ]],
             ['Orçamentos', 'Após a aprovação do orçamento, o funcionário realiza manualmente o cadastro do projeto correspondente no sistema.', [
                 ['POST','/orcamentos','Solicitar orçamento',false], ['GET','/orcamentos','Listar orçamentos do cliente',false], ['GET','/orcamentos/{id}','Consultar orçamento específico',false],
-                ['PUT','/orcamentos/{id}','Atualizar informações do orçamento',false], ['PATCH','/orcamentos/{id}/status','Atualizar situação do orçamento',false],
+                ['PUT','/orcamentos/{id}','Atualizar informações do orçamento',false], ['PUT','/orcamentos/{id}/status','Atualizar situação do orçamento',false],
             ]],
             ['Agendamentos', null, [
                 ['POST','/agendamentos','Criar agendamento',false], ['GET','/agendamentos','Listar agendamentos do cliente',false], ['GET','/agendamentos/{id}','Consultar agendamento específico',false],
-                ['PUT','/agendamentos/{id}','Atualizar agendamento',false], ['PATCH','/agendamentos/{id}/status','Alterar situação do agendamento',false], ['DELETE','/agendamentos/{id}','Cancelar agendamento',false],
+                ['PUT','/agendamentos/{id}','Atualizar agendamento',false], ['DELETE','/agendamentos/{id}','Cancelar agendamento',false],
             ]],
             ['Atualizações e acompanhamento da obra', 'Os funcionários registram e administram as atualizações. Os clientes podem consultar as informações disponibilizadas.', [
                 ['GET','/projetos/{id}/atualizacoes','Listar atualizações da obra',true], ['GET','/atualizacoes/{id}','Consultar atualização específica',false],
@@ -162,7 +167,7 @@
                 <div class="rule"><b>08</b><span>Em atualizações de obra, <code>tipo_atualizacao</code> diferencia informações de obra e financeiras.</span></div>
             </div>
         </section>
-        <p class="note"><strong>Métodos HTTP:</strong> GET consulta informações · POST cadastra ou envia informações · PUT atualiza · PATCH atualiza parcialmente · DELETE exclui.</p>
+        <p class="note"><strong>Métodos HTTP:</strong> GET consulta informações · POST cadastra ou envia informações · PUT atualiza · DELETE exclui.</p>
     </main>
     <footer class="footer">Pingo de Cor · Documentação técnica das APIs · © 2026 · <a href="{{ route('home') }}">Voltar ao site</a></footer>
 </body>

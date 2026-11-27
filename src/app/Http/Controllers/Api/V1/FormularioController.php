@@ -6,16 +6,44 @@ use App\Http\Controllers\Controller;
 use App\Models\Formulario;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+
 class FormularioController extends Controller
 {
-    public function index()
+    // LISTAR FORMULÁRIOS
+    public function index(): JsonResponse
     {
-        $formularios = Formulario::all();
+        $formularios = Formulario::orderBy('data_criacao_formulario', 'desc')
+            ->get();
 
-        return response()->json($formularios);
+        return response()->json([
+            'success' => true,
+            'message' => 'Formulários consultados com sucesso',
+            'total' => $formularios->count(),
+            'data' => $formularios,
+        ]);
     }
 
-    public function store(Request $request)
+    // CONSULTAR FORMULÁRIO ESPECÍFICO
+    public function show(int $id): JsonResponse
+    {
+        $formulario = Formulario::find($id);
+
+        if (!$formulario) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Formulário não encontrado',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Formulário consultado com sucesso',
+            'data' => $formulario,
+        ]);
+    }
+
+    // CADASTRAR FORMULÁRIO
+    public function store(Request $request): JsonResponse
     {
         $dados = $request->validate([
             'nome' => 'required|string|max:255',
@@ -30,28 +58,17 @@ class FormularioController extends Controller
             'observacoes' => 'nullable|string',
         ]);
 
-        $formulario = Formulario::create($dados + [
+        $formulario = Formulario::create([
+            ...$dados,
             'status_formulario' => 'Novo',
             'data_criacao_formulario' => now(),
             'data_atualizacao_formulario' => now(),
         ]);
 
         return response()->json([
-            'mensagem' => 'Formulário enviado com sucesso!',
-            'formulario' => $formulario
+            'success' => true,
+            'message' => 'Formulário enviado com sucesso',
+            'data' => $formulario,
         ], 201);
-    }
-
-    public function show($id)
-    {
-        $formulario = Formulario::find($id);
-
-        if (!$formulario) {
-            return response()->json([
-                'mensagem' => 'Formulário não encontrado.'
-            ], 404);
-        }
-
-        return response()->json($formulario);
     }
 }

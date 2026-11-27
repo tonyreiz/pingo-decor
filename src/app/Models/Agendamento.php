@@ -9,8 +9,9 @@ class  Agendamento extends Model{
     protected $table = 'tbl_agendamento';
     protected $primaryKey = 'id_agendamento';
 
-    public $timestamps = false;
-
+    const CREATED_AT = 'data_criacao_agendamento';
+    const UPDATED_AT = 'data_atualizacao_agendamento';
+    
     protected $fillable = [                    
         'id_cliente',
         'id_funcionario',          

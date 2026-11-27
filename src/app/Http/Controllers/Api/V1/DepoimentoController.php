@@ -24,10 +24,29 @@ class DepoimentoController extends Controller
         ]);
     }
 
+    // CONSULTAR DEPOIMENTO ESPECÍFICO
+    public function show(int $id): JsonResponse
+    {
+        $depoimento = Depoimento::find($id);
+
+        if (!$depoimento) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Depoimento não encontrado',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Depoimento consultado com sucesso',
+            'data' => $depoimento,
+        ]);
+    }
+
     // CADASTRAR DEPOIMENTO
     public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $dados = $request->validate([
             'id_cliente' => 'required|integer',
             'id_orcamento' => 'required|integer',
             'titulo_depoimento' => 'required|string|max:50',
@@ -35,19 +54,63 @@ class DepoimentoController extends Controller
             'nota_depoimento' => 'required|integer|min:1|max:5',
         ]);
 
-        $depoimento = Depoimento::create([
-            'id_cliente' => $request->id_cliente,
-            'id_orcamento' => $request->id_orcamento,
-            'titulo_depoimento' => $request->titulo_depoimento,
-            'descricao_depoimento' => $request->descricao_depoimento,
-            'nota_depoimento' => $request->nota_depoimento,
-            'status_depoimento' => 'Pendente',
-        ]);
+        $dados['status_depoimento'] = 'Pendente';
+
+        $depoimento = Depoimento::create($dados);
 
         return response()->json([
             'success' => true,
             'message' => 'Depoimento enviado para aprovação',
             'data' => $depoimento,
         ], 201);
+    }
+
+    // ATUALIZAR DEPOIMENTO
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $depoimento = Depoimento::find($id);
+
+        if (!$depoimento) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Depoimento não encontrado',
+            ], 404);
+        }
+
+        $dados = $request->validate([
+            'id_cliente' => 'required|integer',
+            'id_orcamento' => 'required|integer',
+            'titulo_depoimento' => 'required|string|max:50',
+            'descricao_depoimento' => 'required|string',
+            'nota_depoimento' => 'required|integer|min:1|max:5',
+        ]);
+
+        $depoimento->update($dados);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Depoimento atualizado com sucesso',
+            'data' => $depoimento,
+        ]);
+    }
+
+    // EXCLUIR DEPOIMENTO
+    public function destroy(int $id): JsonResponse
+    {
+        $depoimento = Depoimento::find($id);
+
+        if (!$depoimento) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Depoimento não encontrado',
+            ], 404);
+        }
+
+        $depoimento->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Depoimento excluído com sucesso',
+        ]);
     }
 }
