@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('tbl_briefing', function (Blueprint $table): void {
             $table->increments('id_briefing');
-            $table->unsignedInteger('id_projetos')->unique();
+            // Match tbl_projetos.id_projetos, which is a signed integer.
+            $table->integer('id_projetos')->unique();
             $table->json('conteudo_briefing');
             $table->dateTime('data_criacao_briefing')->nullable();
             $table->dateTime('data_atualizacao_briefing')->nullable();
