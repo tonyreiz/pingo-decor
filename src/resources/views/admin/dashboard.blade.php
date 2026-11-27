@@ -31,5 +31,14 @@
             @endforelse
         </div>
     </section>
+    <section class="admin-card" style="margin-top: 24px;">
+        <div class="admin-card-header">
+            <div>
+                <h2>Briefings dos projetos</h2>
+                <p>Acesse as informações enviadas e atualize os briefings vinculados aos projetos.</p>
+            </div>
+            <a href="{{ route('admin.briefing.index') }}" class="admin-primary-btn">Ver briefings</a>
+        </div>
+    </section>
     @include('admin.cards')
 @endsection

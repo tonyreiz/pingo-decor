@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\DepoimentoController;
 use App\Http\Controllers\Admin\FuncionarioController;
 use App\Http\Controllers\Admin\AgendamentoController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\BriefingController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/sobre', [SobreController::class, 'sobre'])->name('sobre');
@@ -74,6 +75,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
         Route::get('/formularios', [\App\Http\Controllers\Admin\FormularioController::class, 'index'])->name('formulario.index');
         Route::delete('/formularios/{id}', [\App\Http\Controllers\Admin\FormularioController::class, 'destroy'])->name('formulario.destroy');
+
+        Route::get('/briefings', [BriefingController::class, 'index'])->name('briefing.index');
+        Route::post('/briefings', [BriefingController::class, 'store'])->name('briefing.store');
+        Route::put('/briefings/{id}', [BriefingController::class, 'update'])->name('briefing.update');
+        Route::delete('/briefings/{id}', [BriefingController::class, 'destroy'])->name('briefing.destroy');
 
         Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamento.index');
         Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamento.store');

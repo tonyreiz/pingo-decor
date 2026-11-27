@@ -6,6 +6,11 @@
     <div class="admin-topbar-right">
         
         <a href="{{ route('home') }}" target="_blank" rel="noopener noreferrer" class="admin-view-site">Ver site <span>&rarr;</span></a>
-        <span class="admin-avatar" aria-label="Pingo Decor"><img   class="admin-avatar" src="{{ asset('pingo-decor/assets/funcionario/anthony-reis_7_5asur6.jpg') }}" alt="Funcionário"></span>
+        @php($funcionarioLogado = auth()->user())
+        <span class="admin-avatar" aria-label="{{ $funcionarioLogado->nome_funcionario ?? 'Funcionário' }}">
+            <img class="admin-avatar"
+                src="{{ asset('pingo-decor/assets/' . ltrim($funcionarioLogado->foto_funcionario ?? 'funcionario/imagem-indisponivel.svg', '/')) }}"
+                alt="Foto de {{ $funcionarioLogado->nome_funcionario ?? 'Funcionário' }}">
+        </span>
     </div>
 </header>
